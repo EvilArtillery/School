@@ -35,7 +35,7 @@ char *inputString(size_t size){
 	while(EOF != (ch=getchar()) && ch != '\n'){
         	str[len++]=ch;
         	if(len==size){
-        		str = realloc(str, sizeof(*str)*(size+=16));
+        		str = realloc(str, sizeof(*str) * (size+=16));
         		if(!str)return str;
         	}
 	}
@@ -96,20 +96,12 @@ void quicksort(void* array, int count, int (*compare)(void*, void*), void (*swap
 
 
 int main() {
-	int amount, i;
+	int i, amount, variation;
 
-	printf("Enter the number of arguments: ");
-	if(! scanf("%i", &amount)){
-		perror("Scanf failed");
-		return -1;
-	}
+	amount = 100;
+	variation = 450;
 
-	scanf("%*c");
-
-	if(1 > amount){
-		printf("Logical error!\n");
-		return 1;
-	}
+	srand(time(NULL));
 
         item* list = malloc(amount * sizeof(item));
         if (!list){
@@ -117,9 +109,16 @@ int main() {
 		return -1;
 	}
 
+	/*
 	for(i = 0; i < amount; i++){
-		printf("Enter the argument number %i: ", i+1);
-		(list + i)->value = inputString(16);
+		(list + i)->value = malloc(sizeof(char));
+		*((list + i)->value) = (char) (35 + rand()%variation);
+	}
+	*/
+
+	for(i = 0; i < amount; i ++){
+		(list + i)->value = malloc(10 * sizeof(char));
+		sprintf((list+i)->value, "%9i", rand()%variation);
 	}
 
 //debug	printArray(list, amount);
