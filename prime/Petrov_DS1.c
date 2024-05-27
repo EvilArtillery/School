@@ -2,10 +2,11 @@
 #include <math.h>
 
 int isPrime(int a){
+	if(2 == a) return 1;
 	int i;
 	double b = a, c;
 	c = sqrt(b);
-	for(i = 2; i < c; i++){
+	for(i = 2; i < c + 1; i++){
 		if(a/i == b/i){
 			return 0;
 		}
