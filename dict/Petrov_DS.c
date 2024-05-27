@@ -1,28 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct list{
-	char value;
+	char value[20];
 	int count;
 	struct list *next;
 } list;
 
-int dictadd(list *tlist, char symb){
+int dictadd(list *tlist, char* string){
 	list *a = tlist;
+
 	while(a->next){
-		if(symb == a->value){
+		if(0 == strcmp(string, a->value)){
 			a->count += 1;
 			return 1;
 		}
 		a = a->next;
 	}
-	if(symb == a->value){
+	if(0 == strcmp(string, a->value)){
 		a->count ++;
 		return 1;
 	}
 	list* new = (list*)malloc(sizeof(list));
 	if(NULL == new) return -1;
-	new->value = symb;
+	sscanf(string, "%20s", new->value);
 	new->count = 1;
 	new->next = NULL;
 	a->next = new;
@@ -31,10 +33,11 @@ int dictadd(list *tlist, char symb){
 
 
 int fileRead(FILE* input, list *target){
-	char status;
+	char status[20];
 	int b;
+
 	while(1){
-		b = fscanf(input, "%c", &status);
+		b = fscanf(input, "%20s", status);
 		if(EOF == b) return 1;
 		if(-1 == dictadd(target, status)) return 0;
 	}
@@ -70,8 +73,7 @@ int main(){
 	list *cur = head;
 	while(cur->next){
 		cur = cur->next;
-		if('\n' == cur->value) continue;
-		fprintf(a, "%c: %i times\n", cur->value, cur->count);
+		fprintf(a, "%s: %i times\n", cur->value, cur->count);
 	}
 	lfree(cur);
 

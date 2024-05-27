@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 
 typedef struct List{
-  double value;
+  char value[20];
   int count;
   struct List *next;
 } List;
@@ -14,7 +15,7 @@ typedef struct List{
 int read_file(FILE *in, List **head);
 void fprint(FILE *in, List *head);
 void List_free(List *head);
-int push_sort(List ** head, double value);
+int push_sort(List ** head, char* value);
 
 
 int main(){
@@ -39,9 +40,9 @@ int main(){
 
 int read_file(FILE *in, List **head){
 	int err = 1;
-	double tmp = 0.;
+	char tmp[20];
 	while (1){
-		err = fscanf(in, "%lf", &tmp);
+		err = fscanf(in, "%20s", tmp);
 		if (err == EOF) break;
 		if (err < 1) return -1;
 		err = push_sort(head, tmp);
@@ -51,20 +52,20 @@ int read_file(FILE *in, List **head){
 }
 
 
-int push_sort(List **head, double value){
+int push_sort(List **head, char* value){
 	if (*head == NULL) {
 		*head = (List*)(malloc(sizeof(**head)));
 		if (*head == NULL) return -1;
-		(**head).value = value;
+		sscanf(value, "%20s", (**head).value);
 		(**head).count = 1;
 		(**head).next = NULL;
 		return 1;
 	}
 
-	if (value < (**head).value){
+	if (strcmp(value, (**head).value) < 0){
 		List *new = (List*)malloc(sizeof(*new));
 		if (new == NULL) return -1;
-		new->value = value;
+		sscanf(value, "%20s", new->value);
 		new->count = 1;
 		new->next = (*head);
 		*head = new;
@@ -73,19 +74,18 @@ int push_sort(List **head, double value){
 
 	List *cur = *head;
 	while (cur->next != NULL){
-		if (value < (cur->next)->value) break;
-		if (fabs(value - cur->value) < 1e-14) break;
+		if (strcmp(value, (cur->next->value)) : 0) break;
 		cur = cur->next;
 	}
 	
-	if (fabs(value - cur->value) < 1e-14){
+	if (0 == strcmp(value, cur->value)){
 		cur->count ++;
 		return 1;
 	}
 
 	List *new = (List*)(malloc(sizeof(*new)));
 	if (!new) return -1;
-	new->value = value;
+	sscanf(value, "%20s", new->value);
 	new->next = cur->next;
 	cur->next = new;
 	new->count = 1;
@@ -109,8 +109,8 @@ void fprint(FILE *in, List *head){
 	fprintf(in, "\n");
 	while (cur != NULL){
 		if(1 > cur->count) fprintf(in, "0?\n");
-		if(1 == cur->count) fprintf(in, "%.3lf\n", cur->value);
-		if(1 < cur->count) fprintf(in, "%.3lf %i times\n", cur->value, cur->count);
+		if(1 == cur->count) fprintf(in, "%s\n", cur->value);
+		if(1 < cur->count) fprintf(in, "%s %i times\n", cur->value, cur->count);
 		cur = cur->next;
 	}
 }
