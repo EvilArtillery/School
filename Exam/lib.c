@@ -60,9 +60,7 @@ int calculate_levenstein_distance (const char *str1, const char *str2, int *D)
   
   for (int i = 0; i < length1 + 1; i++){
     for (int j = 0; j < length2 + 1; j ++){
-      D[i + j * length1] = 0;
-      if(0 == i && j > 0) D[(j-1) * (length1 + 1)] = str2[j];
-      if(0 == j && i > 0) D[i-1] = str1[i];
+      D[i + j * (length1 + 1)] = 0;
     }
   }
 
@@ -85,30 +83,37 @@ int calculate_levenstein_distance (const char *str1, const char *str2, int *D)
   return D[(length1+1) * (length2+1) - 1];
 }
 
-void create_editorial_regulations (const int *D, const size_t n1, const size_t n2, const int levenstein_distance, char *editorial_regulations){
+void create_editorial_regulations (const int *D, const char* n1, const char* n2, const int levenstein_distance, char *editorial_regulations){
   if (!D || !n1 || !n2 || !levenstein_distance || !editorial_regulations) return;
 
-  int i = n1, j = n2;
+  int i = strlen(n1), j = strlen(n2), counter = levenstein_distance;
   int costL = 10, costLU = 10, costU = 10;
   while (1 <= i && 1 <= j){
-    costL = D[(i-1) + j * n1];
-    costLU = D[(i-1) + (j-1) * n1];
-    if(D[i + j * n1] == costLU) costLU--;
-    costU = D[i + (j-1) * n1];
+    counter --;
+    costL = D[(i-1) + j * strlen(n1)];
+    costLU = D[(i-1) + (j-1) * strlen(n1)];
+    if(D[i + j * strlen(n1)] == costLU) costLU--;
+    costU = D[i + (j-1) * strlen(n1)];
 
     if(costL <= costLU && costL <= costU){
       i --;
-      editorial_regulations[i + levenstein_distance - n1 - 1] = 'D';
+      editorial_regulations[counter] = 'D';
       continue;
     }
       
     if(costLU <= costL && costLU <= costU){
       i --;
       j --;
-      if(D[i + j * n1] == D[i+1 + (j+1) * n1]){
+      if(D[i + j * strlen(n1)] == D[i+1 + (j+1) * strlen(n1)]){
         continue;
       }
-      editorial_regulations[i + levenstein_distance - n1 - 1] = 'R';
+      editorial_regulations[counter] = 'R';
+      continue;
+    }
+    
+    if(costU <= costL && costU <= costLU){
+      j --;
+      editorial_regulations[counter] = 'I';
       continue;
     }
   }

@@ -43,6 +43,6 @@ int main(){
 		printf("Fibonacci number number %i is %i\n", a, Fib(a));
 		return Fib(a);
 	}
-	printf("Sorry, that's unacceptable argument number 1");
+	printf("Sorry, that's unacceptable argument number 1\n");
 	return 0;
 }

@@ -57,7 +57,7 @@ Complex cdiv(Complex a, Complex b){
 void cprint(Complex a){
 	if(a.im > 1e-14) printf("%.2lf + %.2lfi\n", a.re, a.im);
 	else if(fabs(a.im) < 1e-14) printf("%.2lf\n", a.re);
-	else if(a.im < -1e-14) printf("%.2lf %.2lfi\n", a.re, a.im);
+	else if(a.im < -1e-14) printf("%.2lf - %.2lfi\n", a.re, -a.im);
 }
 
 double argc(Complex a){
@@ -75,7 +75,7 @@ double argc(Complex a){
 //}
 
 Complex cbrtc(Complex a){
-	if(fabs(cmod(a) < 1e-10)) return 0;
+	if(fabs(cmod(a) < 1e-10)) return dtc(0);
 	Complex b;
 	double r = cmod(a), fi = argc(a);
 	fi /= 3.;
@@ -86,7 +86,7 @@ Complex cbrtc(Complex a){
 }
 
 Complex sqrtc(Complex a){
-	if(fabs(cmod(a) < 1e-10)) return 0;
+	if(fabs(cmod(a) < 1e-10)) return dtc(0);
 	Complex b;
 	double r = cmod(a), fi = argc(a);
 	fi /= 2.;

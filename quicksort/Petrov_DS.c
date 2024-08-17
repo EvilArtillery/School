@@ -118,7 +118,7 @@ int main() {
 
 	for(i = 0; i < amount; i ++){
 		(list + i)->value = malloc(10 * sizeof(char));
-		sprintf((list+i)->value, "%9i", rand()%variation);
+		sprintf((list+i)->value, "%4i", rand()%variation);
 	}
 
 //debug	printArray(list, amount);
@@ -145,9 +145,3 @@ int main() {
         free(list);
         return 1;
 }
-
-
-
-
-
-

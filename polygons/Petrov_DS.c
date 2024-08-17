@@ -53,7 +53,7 @@ int main(){
 
 	in = fopen("in.txt", "r+");
 	if(NULL == in){
-		perror("File opening error!: "); //That's error output from stdlib.h
+		perror("File opening error"); //That's error output from stdlib.h
 		return -1;
 	}
 
