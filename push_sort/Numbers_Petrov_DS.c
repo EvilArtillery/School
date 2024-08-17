@@ -64,7 +64,7 @@ int push_sort(List **head, double value){
 		return 1;
 	}
 
-	if ((value - (**head).value) < 1e-14){
+	if ((value - (**head).value) < -1e-14){
 		List *new = (List*)malloc(sizeof(*new));
 		if (new == NULL) return -1;
 		new->value = value;
