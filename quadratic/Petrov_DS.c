@@ -29,7 +29,7 @@ int main(){
 
 	if(fabs(d) <= 1e-14){
 		printf("Discriminant is 0.\n");
-		printf("The only answer is %lf\n", sqrt(arg[2]));
+		printf("The only answer is %lf\n", sqrt(arg[1]));
 		return 1;
 	}
 

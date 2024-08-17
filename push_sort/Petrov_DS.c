@@ -74,7 +74,7 @@ int push_sort(List **head, char* value){
 
 	List *cur = *head;
 	while (cur->next != NULL){
-		if (strcmp(value, (cur->next->value)) : 0) break;
+		if (strcmp(value, (cur->next->value)) < 0) break;
 		cur = cur->next;
 	}
 	

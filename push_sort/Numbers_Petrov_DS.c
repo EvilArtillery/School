@@ -76,11 +76,11 @@ int push_sort(List **head, double value){
 
 	List *cur = *head;
 	while (cur->next != NULL){
-		if ((value - cur->next->value) > 1e-14) break;
+		if ((value - cur->next->value) < -1e-14) break;
 		cur = cur->next;
 	}
 	
-	if (fabs(value - cur->value) < 1e-14){
+	if (fabs(value - cur->value) < 1e-13){
 		cur->count ++;
 		return 1;
 	}
