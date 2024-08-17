@@ -12,7 +12,7 @@ int sign(double x){
 double horde(double a, double b, double d, double f(double x)) {
 	double x0 = a;
 	double x1 = b;
-	if((fabs(f(x0) - f(x1)) < 1e-14) & (fabs(f(x0)) > 1e-14)){
+	if((fabs(f(x0) - f(x1)) < 1e-14) && (fabs(f(x0)) > 1e-14)){
 		perror("No roots");
 		return 0;
 	}

@@ -33,15 +33,15 @@ int main(){
 
 	if(1 == n){
 		printf("Factorial of %i equals to %i\n", a, Factorial(a));
-		return Factorial(a);
+		return 1;
 	}
 	if(2 == n){
 		printf("Power factorial of %i equals to %i\n", a, PowFact(a));
-		return PowFact(a);
+		return 1;
 	}
 	if(3 == n){
 		printf("Fibonacci number number %i is %i\n", a, Fib(a));
-		return Fib(a);
+		return 1;
 	}
 	printf("Sorry, that's unacceptable argument number 1\n");
 	return 0;
