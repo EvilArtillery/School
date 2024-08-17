@@ -137,11 +137,15 @@ int main() {
 
 	if(1 == amount){
 		printf("Sorted 1 element\n");
+		free(list->value);
 		free(list);
 		return 1;
 	}
 	printf("Sorted %i elements\n", amount);
 
+	for(i = 0; i < amount; i++){
+		free((list + i)->value);
+	}
         free(list);
         return 1;
 }
