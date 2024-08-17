@@ -20,14 +20,9 @@ double dtd(dot a, dot b){ //Distance from Dot To Dot, from there comes the name.
 }
 
 double dtl(dot a, line b){ //Distance from Dot To Line, analogically to dtd.
-	line h; //h stands for Height, or perpendicular.
-	h.a = -b.b;
-	h.b = b.a;
-	h.c = -(h.a * a.x) - (h.b * a.y);
-	dot t; //T is an intersection of lines h and b.
-	t.x = (b.b * h.c - b.c * h.b)/(b.a * h.b - b.b * h.a);
-	t.y = (b.a * h.c - b.c * h.a)/(b.b * h.a - b.a * h.b);
-	return dtd(a, t); //Returns distance between dot A and its project on the line, T.
+	double dist;
+	dist = fabs(b.a * a.x + b.b * a.y + b.c)/sqrt(b.a * b.a + b.b * b.b);
+	return dist;
 }
 
 double dtls(dot x, dot a, dot b){ //Distance from Dot To Line Segment.

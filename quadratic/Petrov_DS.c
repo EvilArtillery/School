@@ -28,8 +28,10 @@ int main(){
 	}
 
 	if(fabs(d) <= 1e-14){
+		double answer;
+		answer = -arg[1]/(2 * arg[0]);
 		printf("Discriminant is 0.\n");
-		printf("The only answer is %lf\n", sqrt(arg[1]));
+		printf("The only answer is %lf\n", answer);
 		return 1;
 	}
 
