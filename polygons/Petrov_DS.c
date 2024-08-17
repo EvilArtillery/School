@@ -75,7 +75,7 @@ int main(){
 
 
 	double mindist, d;
-	mindist = 1.e45; //Placeholder for the biggest minimal distance.
+	mindist = INFINITY; //Placeholder for the biggest minimal distance.
 	dot a, b, x;
 
 	for(i = 0; i < n; i++){
@@ -100,7 +100,7 @@ int main(){
 		}
 	}
 
-	if(1e45 == mindist) return 0; //If distance is bigger than THIS... I'm not gonna do it.
+	if(INFINITY == mindist) return 0; //If distance is bigger than THIS... I'm not gonna do it.
 
 	printf("%.2lf\n", mindist);
 
