@@ -13,7 +13,7 @@ typedef struct List{
 
 
 int read_file(FILE *in, List **head);
-void fprint(FILE *in, List *head);
+void print(List *head);
 void List_free(List *head);
 int push_sort(List ** head, char* value);
 
@@ -30,7 +30,7 @@ int main(){
 		return -1;
 	}
 	
-	fprint(in, head);
+	print(head);
 	List_free(head);
 
 	fclose(in);
@@ -103,14 +103,13 @@ void List_free(List *head){
 	}
 }
 
-void fprint(FILE *in, List *head){
+void print(List *head){
 	if (head == NULL) return;
 	List *cur = head;
-	fprintf(in, "\n");
 	while (cur != NULL){
-		if(1 > cur->count) fprintf(in, "0?\n");
-		if(1 == cur->count) fprintf(in, "%s\n", cur->value);
-		if(1 < cur->count) fprintf(in, "%s %i times\n", cur->value, cur->count);
+		if(1 > cur->count) printf("0?\n");
+		if(1 == cur->count) printf("%s\n", cur->value);
+		if(1 < cur->count) printf("%s: %i times\n", cur->value, cur->count);
 		cur = cur->next;
 	}
 }

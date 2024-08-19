@@ -75,7 +75,7 @@ int main(){
 
 
 	double mindist, d;
-	mindist = INFINITY; //Placeholder for the biggest minimal distance.
+	mindist = -1; //Placeholder for the biggest minimal distance.
 	dot a, b, x;
 
 	for(i = 0; i < n; i++){
@@ -85,7 +85,7 @@ int main(){
 		for(j = 0; j < n2; j++){
 			x = *(polygon2 + j); //And one from second.
 			d = dtls(x, a, b); //Counting distance.
-			if(d < mindist) mindist = d; //Smallest?
+			if(d < mindist || mindist < 0) mindist = d; //Smallest?
 		}
 	}
 
@@ -100,8 +100,10 @@ int main(){
 		}
 	}
 
-	if(INFINITY == mindist) return 0; //If distance is bigger than THIS... I'm not gonna do it.
-
+	if(mindist < 0){
+		printf("Error!\n");
+		return 0;
+	}
 	printf("%.2lf\n", mindist);
 
 	free(polygon1); //Freeing memory

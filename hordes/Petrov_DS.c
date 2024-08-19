@@ -1,124 +1,87 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define _USE_MATH_DEFINES
 
-int sign(double x){
-	if(x < 0) return -1;
-	return 1;
-
+double bisec(double a, double b, double error, double (*func)(double)) { //метод деления отрезка пополам(бисекции)
+	double c;
+	if (fabs(func(a)) < (1e-14 + error)) return a;
+	if (fabs(func(b)) < (1e-14 + error)) return b;
+	if (func(a) * func(b) > 1e-14) return -1;
+	c = (a + b) * 0.5;
+	if (func(a) * func(c) < 0) b = c;
+	else a = c;
+	return bisec(a,b,error,func);
 }
 
-double horde(double a, double b, double d, double f(double x)) {
-	double x0 = a;
-	double x1 = b;
-	if((fabs(f(x0) - f(x1)) < 1e-14) && (fabs(f(x0)) > 1e-14)){
-		perror("No roots");
-		return 0;
-	}
-	while(fabs(x0 - x1) > d) {
-		x0 = x0 - (x1 - x0) * f(x0) / (f(x1) - f(x0));
-		x1 = x1 - (x0 - x1) * f(x1) / (f(x0) - f(x1));
-	}
-	return x1;
+double secant(double a, double b, double error, double (*func)(double)){
+	if (fabs(func(a)) < (1e-14 + error)) return a;
+	if (fabs(func(b)) < (1e-14 + error)) return b;
+	if (fabs(a - b) < error) return a;
+	double c;
+	c = a - (func(a) * (b - a) / (func(b) - func(a)));
+	return secant(b, c, error, func);
 }
 
-double bisection(double a, double b, double delta, double f(double x)){
-	double x0 = a;
-	double x1 = b;
-	double x2 = (a + b)/2.;
-	while(fabs(x0 - x1) > delta){
-		if(fabs(f(x2)) < delta) return x2;
-		if(sign(f(x0)) == sign(f(x1))){
-			perror("No roots at specified location");
-			return 0;
-		}
-		if(sign(f(x2)) == sign(f(x0))){
-			x0 = x2;
-		}
-		if(sign(f(x2)) == sign(f(x1))){
-			x1 = x2;
-		}
-		x2 = (x0 + x1)/2.;
-	}
-	return x2;
+double f1 (double x){
+	return pow(x, 3) - 2 * pow(x, 2) + 3 * x - 4;
+}
+
+double f2 (double x){
+	return exp(x) - 152 * pow(x, 2) + 34 * x;
+}
+
+double f3 (double x){
+	return cbrt(x + 15) - 4;
 }
 
 int main(){
-	double n2;
-	int n, i;
-	double temp = 0;
+	int selected1, selected2;
+	double a, b, error;
+	double answer;
 
-	printf("Enter the highest power of x in your function: ");
-	if(! scanf("%lf", &n2)){
-		perror("scanf failed");
+	printf("Functions:\n1. x^3 - 2 x^2 + 3x - 4\n2. exp(x) - 152 x^2 + 34x\n3. cbrt(x + 15) - 4\nChoose function from the list above: ");
+	if(1 != scanf("%i", &selected1)){
+		perror("Scanf failed");
 		return -1;
 	}
 
-	if(n2 < 1){
-		perror("Not a function");
-	       	return -1;
-	}
-
-	n = n2 + 1;
-	double* args = (double*) malloc(n * sizeof(double));
-
-	if(NULL == args){
-		perror("Memory allocation error");
-		return -2;
-	}
-
-	for(i = 0; i < n; i++){
-		printf("Enter the argument of x^%i: ", n-i-1);
-		if(! scanf("%lf", args+i)){
-			perror("scanf failed");
-			return -1;
-		}
-	}
-	
-	double f(double x){
-		double result = 0;
-		for(i = 0; i < n; i++){
-			temp = pow(x, n-i-1) * args[i];
-			result += temp;
-		}
-		return result;
-	}
-
-/*
-	double f(double x){
-		double result = 0;
-		result = pow(x, 2) + sin(x);
-		return result;
-	}
-*/
-	printf("Choose method: Horde([0]), Bisection(1)\n");
-	if(! scanf("%lf", &temp)){
-		perror("scanf failed");
+	printf("Methods:\n1. Bisection method\n2. Secant method\nChoose method from the list above: ");
+	if(1 != scanf("%i", &selected2)){
+		perror("Scanf failed");
 		return -1;
 	}
 
-	double x0 = 0, x1 = 0, eps = 1;
-	printf("Enter x0: ");
-	if(! scanf("%lf", &x0)){
-		perror("scanf failed");
-		return -1;
-	}
-	printf("Enter x1: ");
-	if(! scanf("%lf", &x1)){
-		perror("scanf failed");
-		return -1;
-	}
-	printf("Enter Delta: ");
-	if(! scanf("%lf", &eps)){
-		perror("scanf failed");
+	printf("Enter one of the end points of your interval: ");
+	if(1 != scanf("%lf", &a)){
+		perror("Scanf failed");
 		return -1;
 	}
 
-	if(1 == temp) printf("%.2lf\n", bisection(x0, x1, eps, f));
-	else printf("%.2lf\n", horde(x0, x1, eps, f));
-	
+	printf("Enter the other end point of your interval: ");
+	if(1 != scanf("%lf", &b)){
+		perror("Scanf failed");
+		return -1;
+	}
 
-	free(args);
+	printf("Enter acceptable margin: ");
+	if(1 != scanf("%lf", &error)){
+		perror("Scanf failed");
+		return -1;
+	}
+
+	selected1 += selected2 * 3;
+	selected1 -= 3;
+	if (1 == selected1) answer = bisec(a, b, error, f1);
+	else if (2 == selected1) answer = bisec(a, b, error, f2);
+	else if (3 == selected1) answer = bisec(a, b, error, f3);
+	else if (4 == selected1) answer = secant(a, b, error, f1);
+	else if (5 == selected1) answer = secant(a, b, error, f2);
+	else if (6 == selected1) answer = secant(a, b, error, f3);
+	else{
+		printf("Error! Unknown function/method!\n");
+		return 0;
+	}
+
+	printf("Answer is \x1b[31m%lf\x1b[0m\n", answer);
 	return 1;
 }

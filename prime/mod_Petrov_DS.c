@@ -3,7 +3,8 @@
 
 int isPrime(int a){
 	if(2 == a) return 1;
-	for(int i = 2; i < sqrt(a) + 1; i++){
+	if(0 == a%2) return 0;
+	for(int i = 3; i * i < a+1; i += 2){
 		if(0 == a%i) return 0;
 	}
 	return 1;

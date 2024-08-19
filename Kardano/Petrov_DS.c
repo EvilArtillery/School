@@ -50,8 +50,9 @@ double complexModuleSquared(Complex a){
 
 Complex cdiv(Complex a, Complex b){
 	Complex c;
-	c.re = (a.re * b.re + (a.im * b.im))/complexModuleSquared(b);
-	c.im = (b.re * a.im - (a.re * b.im))/complexModuleSquared(b);
+	double mb = complexModuleSquared(b);
+	c.re = (a.re * b.re + (a.im * b.im))/mb;
+	c.im = (b.re * a.im - (a.re * b.im))/mb;
 	return c;
 }
 void cprint(Complex a){
@@ -62,8 +63,8 @@ void cprint(Complex a){
 
 double argc(Complex a){
 	double ar = 0;
-	if(a.im > 1e-14) ar = fabs(acos(a.re/cmod(a)));
-	else if(a.im < -(1e-14)) ar = - fabs(acos(a.re/cmod(a)));
+	if(a.im > 1e-14) ar = fabs(atan(a.re/a.im));
+	else if(a.im < -(1e-14)) ar = - fabs(atan(a.re/a.im));
 	else if(a.re < -(1e-14)) ar = M_PI;
 	return ar;
 }
