@@ -117,8 +117,10 @@ void SOLVEc(Complex p, Complex q, Complex* x0, Complex* x1, Complex* x2){
 //	b = cbrtc(csumm(cneg(z), cneg(q)));
 	a = cbrtc(z);
 
-	b = cneg(csumm(z, q));
-	b = cbrtc(b);
+//	b = cneg(csumm(z, q));
+//	b = cbrtc(b);
+
+	b = cdiv(p, cprod(dtc(-3), a));
 
 	*x0 = csumm(a, b);
 	*x1 = csumm(cprod(a, eps), cprod(b, cconj(eps)));
@@ -152,7 +154,7 @@ int main(){
 	printf("Enter the imaginary part of argument d: ");
 	if(! scanf("%lf", &d.im)) return -1;
 	
-	Complex ac = cprod(cprod(a, c), dtc(3));	//Supposedly, bug in counting p;
+	Complex ac = cprod(cprod(a, c), dtc(3));
 	Complex tmp = csumm(ac, cneg(cprod(b, b)));
 	Complex a2 = cprod(cprod(a, a), dtc(3));
 	Complex p = cdiv(tmp, a2);
