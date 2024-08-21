@@ -1,0 +1,59 @@
+diff --git a/bit_knight/Petrov_DS.c b/bit_knight/Petrov_DS.c
+index d167117..8298284 100644
+--- a/bit_knight/Petrov_DS.c
++++ b/bit_knight/Petrov_DS.c
+@@ -21,6 +21,17 @@ int get_bit(unsigned char *board, int position){
+ 	return value;
+ }
+ 
++void print_board(unsigned char *board, int board_side){
++	for (int i = 0; i < board_side; i++){
++		for (int j = 0 ; j < board_side; j++){
++			printf("%i ",get_bit(board, i*board_side + j));
++		}
++		printf("\n");	
++	}	
++
++}	
++
++
+ int main(){
+ 	int board_side = -1, board_size;
+ 	int xStart = -1, yStart = -1;
+@@ -72,6 +83,7 @@ int main(){
+ 	for(i = 1; i < board_size; i++){
+ 		coordinate = x * board_side + y;
+ 		set_bit(board, coordinate);
++/*		print_board(board, board_side); */
+ 		printf("(%i, %i)\n", x, y);
+ 		minMoves = 9;
+ 		move = -1;
+@@ -85,12 +97,12 @@ int main(){
+ 			coordinate = xMove * board_side + yMove;
+ 			if(1 == get_bit(board, coordinate)) continue;
+ 			possibleMoves = 0;
+-			for(k = 0; k < 8; k++){
+-				if(8 == (j%8 + k)) continue;
+-				xNow = x + moves[j%8][0] + moves[k][0];
++			for(k = skip; k < 8 + skip; k++){
++/*				if(8 == (j%8 + k)) continue;  */
++				xNow = x + moves[j%8][0] + moves[k%8][0];
+ 				if(xNow >= board_side) continue;
+ 				if(xNow < 0) continue;
+-				yNow = y + moves[j%8][1] + moves[k][1];
++				yNow = y + moves[j%8][1] + moves[k%8][1];
+ 				if(yNow >= board_side) continue;
+ 				if(yNow < 0) continue;
+ 				coordinate = xNow * board_side + yNow;
+@@ -103,9 +115,10 @@ int main(){
+ 					}
+ 				}
+ 				minMoves = possibleMoves;
+-				move = j;
++				move = j%8;
+ 			}
+ 		}
++/*		printf("minMoves = %d move=%d\n", minMoves,move); */
+ 		if((9 == minMoves) && (i < board_size-1)){
+ 			skip += 1;
+ 			for(k = 0; k < array_size; k++){

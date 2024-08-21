@@ -5,7 +5,7 @@
 
 
 typedef struct List{
-  char value[20];
+  char value[256];
   int count;
   struct List *next;
 } List;
@@ -40,9 +40,9 @@ int main(){
 
 int read_file(FILE *in, List **head){
 	int err = 1;
-	char tmp[20];
+	char tmp[256];
 	while (1){
-		err = fscanf(in, "%20s", tmp);
+		err = fscanf(in, "%s", tmp);
 		if (err == EOF) break;
 		if (err < 1) return -1;
 		err = push_sort(head, tmp);
@@ -56,7 +56,7 @@ int push_sort(List **head, char* value){
 	if (*head == NULL) {
 		*head = (List*)(malloc(sizeof(**head)));
 		if (*head == NULL) return -1;
-		sscanf(value, "%20s", (**head).value);
+		sscanf(value, "%s", (**head).value);
 		(**head).count = 1;
 		(**head).next = NULL;
 		return 1;
@@ -65,7 +65,7 @@ int push_sort(List **head, char* value){
 	if (strcmp(value, (**head).value) < 0){
 		List *new = (List*)malloc(sizeof(*new));
 		if (new == NULL) return -1;
-		sscanf(value, "%20s", new->value);
+		sscanf(value, "%s", new->value);
 		new->count = 1;
 		new->next = (*head);
 		*head = new;
@@ -85,7 +85,7 @@ int push_sort(List **head, char* value){
 
 	List *new = (List*)(malloc(sizeof(*new)));
 	if (!new) return -1;
-	sscanf(value, "%20s", new->value);
+	sscanf(value, "%s", new->value);
 	new->next = cur->next;
 	cur->next = new;
 	new->count = 1;
@@ -107,9 +107,7 @@ void print(List *head){
 	if (head == NULL) return;
 	List *cur = head;
 	while (cur != NULL){
-		if(1 > cur->count) printf("0?\n");
-		if(1 == cur->count) printf("%s\n", cur->value);
-		if(1 < cur->count) printf("%s: %i times\n", cur->value, cur->count);
+		printf("%s: %i\n", cur->value, cur->count);
 		cur = cur->next;
 	}
 }

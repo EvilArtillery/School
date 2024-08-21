@@ -31,7 +31,7 @@ double f2 (double x){
 }
 
 double f3 (double x){
-	return cbrt(x + 15) - 4;
+	return exp(x) - M_PI;
 }
 
 int main(){
