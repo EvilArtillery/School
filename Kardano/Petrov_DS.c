@@ -103,9 +103,9 @@ void SOLVEc(Complex p, Complex q, Complex* x0, Complex* x1, Complex* x2){
 	eps.re = -1/2.;
 
 	if(fabs(cmod(p)) < 1e-14){
-		*x0 = cneg(cbrtc(q));
-		*x1 = csumm(*x0, eps);
-		*x2 = csumm(*x1, eps);
+		*x0 = cbrtc(cneg(q));
+		*x1 = cprod(*x0, eps);
+		*x2 = cprod(*x1, eps);
 		return;
 	}
 
