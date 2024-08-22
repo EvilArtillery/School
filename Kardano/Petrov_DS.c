@@ -102,23 +102,29 @@ void SOLVEc(Complex p, Complex q, Complex* x0, Complex* x1, Complex* x2){
 	eps.im = sqrt(3)/2;
 	eps.re = -1/2.;
 
-	if(fabs(cmod(p)) < 1e-14){
-		*x0 = cbrtc(cneg(q));
-		*x1 = cprod(*x0, eps);
-		*x2 = cprod(*x1, eps);
-		return;
-	}
+//	if(fabs(cmod(p)) < 1e-14){
+//		*x0 = cbrtc(cneg(q));
+//		*x1 = cprod(*x0, eps);
+//		*x2 = cprod(*x1, eps);
+//		return;
+//	}
 
 	//z = (q^2)/4 + (p^3)/27;
 	Complex z = csumm(cdiv(cprod(q, q), dtc(4)), cdiv(cprod(cprod(p, p), p), dtc(27)));
 	z = sqrtc(z);
 	z = csumm(z, cdiv(q, dtc(-2)));
 
-//	b = cbrtc(csumm(cneg(z), cneg(q)));
 	a = cbrtc(z);
 
-//	b = cneg(csumm(z, q));
-//	b = cbrtc(b);
+	if(fabs(cmod(a)) < 1e-14){
+		b = cneg(csumm(z, q));
+		b = cbrtc(b);
+
+		*x0 = b;
+		*x1 = cprod(b, eps);
+		*x2 = cprod(b, cconj(eps));
+		return;
+	}
 
 	b = cdiv(p, cprod(dtc(-3), a));
 
