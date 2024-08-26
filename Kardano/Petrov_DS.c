@@ -42,6 +42,11 @@ double cmod(Complex a){
 	return sqrt(b);
 }
 
+int ccompare(Complex a, Complex b){
+	if((fabs(a.re - b.re) < 1e-14) && (fabs(a.im - b.im) < 1e-14)) return 1;
+	return 0;
+}
+
 double complexModuleSquared(Complex a){
 	double b;
 	b = a.re * a.re + (a.im * a.im);
@@ -112,13 +117,12 @@ void SOLVEc(Complex p, Complex q, Complex* x0, Complex* x1, Complex* x2){
 	//z = (q^2)/4 + (p^3)/27;
 	Complex z = csumm(cdiv(cprod(q, q), dtc(4)), cdiv(cprod(cprod(p, p), p), dtc(27)));
 	z = sqrtc(z);
-	z = csumm(z, cdiv(q, dtc(-2)));
+	a = csumm(z, cdiv(q, dtc(-2)));
 
-	a = cbrtc(z);
+	a = cbrtc(a);
 
-	if(fabs(cmod(a)) < 1e-14){
-		b = cneg(csumm(z, q));
-		b = cbrtc(b);
+	if(fabs(cmod(p)) < 1e-14){
+		b = cbrtc(cneg(q));
 
 		*x0 = b;
 		*x1 = cprod(b, eps);
