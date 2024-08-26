@@ -142,9 +142,9 @@ int main(){
 	Complex a, b, c, d;
 
 
-	Complex eps;
-	eps.re = -1/2.;
-	eps.im = sqrt(3)/2.;
+//	Complex eps;
+//	eps.re = -1/2.;
+//	eps.im = sqrt(3)/2.;
 
 
 	printf("Enter the real part of argument a: ");
@@ -178,13 +178,17 @@ int main(){
 
 	Complex t[3], x[3];
 	SOLVEc(p, q, &t[0], &t[1], &t[2]);
-	x[0] = csumm(t[0], cdiv(b, cprod(a, dtc(3))));
-	
-	cprint(x[0]);
 
-	for(i = 0; i < 2; i++){
-		x[i+1] = cprod(x[i], eps);
-		cprint(x[i+1]);
+	for(i = 0; i < 3; i++){
+		x[i] = csumm(t[i], cdiv(b, cprod(a, dtc(3))));
 	}
+	cprint(x[0]);
+	cprint(x[1]);
+	cprint(x[2]);
+
+//	for(i = 0; i < 2; i++){
+//		x[i+1] = cprod(x[i], eps);
+//		cprint(x[i+1]);
+//	}
 	return 1;
 }
