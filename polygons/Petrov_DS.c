@@ -52,25 +52,43 @@ int main(){
 		return -1;
 	}
 
-	fscanf(in, "%i", &n);
+	if(! fscanf(in, "%i", &n)){
+		perror("Fscanf failed");
+		return -1;
+	}
 
 	dot* polygon1 = (dot *) malloc(n * sizeof(dot)); //Creating first polygon
 	if(NULL == polygon1) return -1;
 
 	for(i = 0; i < n; i++){ //Filling first polygon
-		fscanf(in, "%lf", &(polygon1+i)->x);
-		fscanf(in, "%lf", &(polygon1+i)->y);
+		if(! fscanf(in, "%lf", &(polygon1+i)->x)){
+			perror("Fscanf failed");
+			return -1;
+		}
+		if(! fscanf(in, "%lf", &(polygon1+i)->y)){
+			perror("Fscanf failed");
+			return -1;
+		}
 	}
 
 
-	fscanf(in, "%i", &n2);
+	if(! fscanf(in, "%i", &n2)){
+		perror("Fscanf failed");
+		return -1;
+	}
 
 	dot* polygon2 = (dot *) malloc(n2 * sizeof(dot));
 	if(NULL == polygon2) return -1; //Second polygon: memory and data.
 
 	for(i = 0; i < n2; i++){
-		fscanf(in, "%lf", &(polygon2+i)->x);
-		fscanf(in, "%lf", &(polygon2+i)->y);
+		if(! fscanf(in, "%lf", &(polygon2+i)->x)){
+			perror("Fscanf failed");
+			return -1;
+		}
+		if(! fscanf(in, "%lf", &(polygon2+i)->y)){
+			perror("Fscanf failed");
+			return -1;
+		}
 	}
 
 

@@ -5,7 +5,7 @@
 
 
 typedef struct List{
-  char value[256];
+  char* value;
   int count;
   struct List *next;
 } List;
@@ -53,9 +53,11 @@ int read_file(FILE *in, List **head){
 
 
 int push_sort(List **head, char* value){
+	size_t length = strlen(value) + 1;
 	if (*head == NULL) {
 		*head = (List*)(malloc(sizeof(**head)));
 		if (*head == NULL) return -1;
+		(**head).value = malloc(length * sizeof(char));
 		sscanf(value, "%s", (**head).value);
 		(**head).count = 1;
 		(**head).next = NULL;
@@ -65,6 +67,7 @@ int push_sort(List **head, char* value){
 	if (strcmp(value, (**head).value) < 0){
 		List *new = (List*)malloc(sizeof(*new));
 		if (new == NULL) return -1;
+		new->value = malloc(length * sizeof(char));
 		sscanf(value, "%s", new->value);
 		new->count = 1;
 		new->next = (*head);
@@ -85,6 +88,7 @@ int push_sort(List **head, char* value){
 
 	List *new = (List*)(malloc(sizeof(*new)));
 	if (!new) return -1;
+	new->value = malloc(length * sizeof(char));
 	sscanf(value, "%s", new->value);
 	new->next = cur->next;
 	cur->next = new;
@@ -99,6 +103,7 @@ void List_free(List *head){
 	while (cur != NULL){
 		tmp = cur;
 		cur = cur->next;
+		free(tmp->value);
 		free(tmp);
 	}
 }
