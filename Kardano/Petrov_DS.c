@@ -68,9 +68,9 @@ void cprint(Complex a){
 
 double argc(Complex a){
 	double ar = 0;
-	if(a.im > 1e-14) ar = fabs(atan(a.re/a.im));
-	else if(a.im < -(1e-14)) ar = - fabs(atan(a.re/a.im));
-	else if(a.re < -(1e-14)) ar = M_PI;
+	double mod = cmod(a);
+	if(a.im > 1e-14) ar = acos(a.re/mod);
+	else ar = - acos(a.re/mod);
 	return ar;
 }
 
@@ -121,7 +121,7 @@ void SOLVEc(Complex p, Complex q, Complex* x0, Complex* x1, Complex* x2){
 
 	a = cbrtc(a);
 
-	if(fabs(cmod(p)) < 1e-14){
+	if(fabs(cmod(a)) < 1e-14){
 		b = cbrtc(cneg(q));
 
 		*x0 = b;
@@ -180,7 +180,7 @@ int main(){
 	SOLVEc(p, q, &t[0], &t[1], &t[2]);
 
 	for(i = 0; i < 3; i++){
-		x[i] = csumm(t[i], cdiv(b, cprod(a, dtc(3))));
+		x[i] = csumm(t[i], cdiv(b, cprod(a, dtc(-3))));
 	}
 	cprint(x[0]);
 	cprint(x[1]);
