@@ -54,6 +54,12 @@ int read_file(FILE *in, List **head){
 
 int push_sort(List **head, char* value){
 	size_t length = strlen(value) + 1;
+	for(int counter = 0; counter < length; counter++){
+		if('A' <= value[counter] && value[counter] <= 'Z'){
+			value[counter] -= ('A' - 'a');
+		}
+	}
+
 	if (*head == NULL) {
 		*head = (List*)(malloc(sizeof(**head)));
 		if (*head == NULL) return -1;
