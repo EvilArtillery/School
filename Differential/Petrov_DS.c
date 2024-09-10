@@ -12,7 +12,7 @@ double oscillator_no_speed(double phi0, double dt, double l, double g){
 
     while(psit >= 0){
         phit1 = phit + (psit * dt);
-        psit1 = psit - (w * sin(phit) * dt);
+        psit1 = psit + (w * sin(phit) * dt);
 
         n++;
         psit = psit1;
@@ -33,6 +33,10 @@ double speed_to_no_speed(double phi0, double psi0, double dt, double l, double g
     while(psit/psi0 > 0){
         phit1 = phit + (psit * dt);
         psit1 = psit + (w * sin(phit) * dt);
+
+        if(fabs(phit1) - M_PI > 1e-14){
+            return -1;
+        }
 
         psit = psit1;
         phit = phit1;
@@ -62,6 +66,10 @@ int main(){
         perror("Scanf failed");
         return -1;
     }
+    if(fabs(phi0) - M_PI > -1e-14){
+        printf("\x1b[31mError: too big starting angle\n\x1b[0m");
+        return 0;
+    }
 
     double psi0 = 0;
     printf("Enter the starting speed of your pendulum: ");
@@ -76,14 +84,14 @@ int main(){
     }
 
     double dt = 0;
-    printf("Enter an acceptable margin for errors: ");
+    printf("Enter a time step for calculating (in seconds): ");
     if(1 != scanf("%lf", &dt)){
         perror("Scanf failed");
         return -1;
     }
 
     if(0 >= dt){
-        printf("\x1b[31mError: margin has to be more than 0\n\x1b[0m");
+        printf("\x1b[31mError: step has to be more than 0\n\x1b[0m");
         return 0;
     }
 
@@ -91,6 +99,6 @@ int main(){
     if(0 == psi0) result = oscillator_no_speed(phi0, dt, l, g);
     else result = speed_to_no_speed(phi0, psi0, dt, l, g);
 
-    printf("%lf", result);
+    printf("%lf\n", result);
     return(1);
 }
