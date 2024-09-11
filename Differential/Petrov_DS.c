@@ -33,7 +33,7 @@ double speed_to_no_speed(double phi0, double psi0, double dt, double l, double g
 
     double phit1, psit1;
 
-    while(psit/psi0 > 0){
+    while(psit*psi0 > 0){
         phit1 = phit + (psit * dt);
         psit1 = psit - (w * sin(phit) * dt); /*
         printf("Angle: %lf\n", phit1);
