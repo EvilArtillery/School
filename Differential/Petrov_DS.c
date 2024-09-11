@@ -3,16 +3,19 @@
 #include <stdlib.h>
 
 double oscillator_no_speed(double phi0, double dt, double l, double g){
-    double phit = phi0;
+    double phit = fabs(phi0);
+    if(1e-14 > phit) return 0;
     double psit = 0;
-    double w = g/l;
-    int n = 0;
+    double w = -g/l;
+    unsigned long long n = 0;
 
     double psit1, phit1;
 
     while(psit >= 0){
-        phit1 = phit + (psit * dt);
-        psit1 = psit + (w * sin(phit) * dt);
+        phit1 = phit - (psit * dt);
+        psit1 = psit - (w * sin(phit) * dt); /*
+        printf("Angle: %lf\n", phit1);
+        printf("Speed: %lf\n", psit1); */
 
         n++;
         psit = psit1;
@@ -32,7 +35,9 @@ double speed_to_no_speed(double phi0, double psi0, double dt, double l, double g
 
     while(psit/psi0 > 0){
         phit1 = phit + (psit * dt);
-        psit1 = psit + (w * sin(phit) * dt);
+        psit1 = psit - (w * sin(phit) * dt); /*
+        printf("Angle: %lf\n", phit1);
+        printf("Speed: %lf\n\n", psit1); */
 
         if(fabs(phit1) - M_PI > 1e-14){
             return -1;
