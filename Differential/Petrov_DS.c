@@ -39,17 +39,18 @@ double speed_to_no_speed(double phi0, double psi0, double dt, double l, double g
     //e = gh = gl(1 - cos(phi))
     height = energy / g;
     height /= l;
-
+/*
     height -= 1;
     height *= -1;
-
+*/
     if(fabs(height) > 1){
         printf("\x1b[31mToo much energy!\x1b[0m\n");
         return 0;
     }
-    angle = acos(height);
-    
-    return(oscillator_no_speed(angle, dt, l, g) - dt);
+    angle = acos(1 - height);
+    printf("%lf\n", angle);
+
+    return(oscillator_no_speed(angle, dt, l, g));
 }
 
 int main(){
