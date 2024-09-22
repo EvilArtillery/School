@@ -52,6 +52,10 @@ int main(){
         printf("\x1b[91mFriction can't be less than 0!\x1b[0m\n");
         return 0;
     }
+    if(1 <= friction){
+        printf("\x1b[91mFriction coefficient has to be less than 1!\x1b[0m\n");
+        return 0;
+    }
 
     printf("Enter a time period for calculating (in seconds, usually 1e-5): ");
     if(1 != scanf("%lf", &dt)){
