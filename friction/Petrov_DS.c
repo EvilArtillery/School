@@ -2,12 +2,19 @@
 #include <stdlib.h>
 #include <math.h>
 
-int friction_instance(double* x, double* y, double* speed_x, double* speed_y, double friction){
-    
+int friction_instance(double* x, double* speed_x, double friction, double dt){
+    double x1, speed_x1;
+
+    x1 = *x + (*speed_x * dt);
+    speed_x1 = *speed_x - (*speed_x * friction);
+    printf("Coordinate:%lf, speed:%lf\n", x1, speed_x1);
+
+    *x = x1;
+    *speed_x = speed_x1;
 }
 
 int main(){
-    double speed0 = 0, angle0 = 0, friction = 0;
+    double speed0 = 0, angle0 = 0, friction = 0, dt = 0;
 
     printf("Enter the initial speed: ");
     if(1 != scanf("%lf", &speed0)){
@@ -16,7 +23,7 @@ int main(){
     }
 
     if(speed0 <= 1e-14){
-        printf("\x1b[31mInitial speed has to be more than 0!\x1b[0m\n");
+        printf("\x1b[91mInitial speed has to be more than 0!\x1b[0m\n");
         return 0;
     }
 
@@ -27,11 +34,11 @@ int main(){
     }
 
     if(angle0 <= 1e-14){
-        printf("\x1b[31mThrow angle has to be more than 0!\x1b[0m\n");
+        printf("\x1b[91mThrow angle has to be more than 0!\x1b[0m\n");
         return 0;
     }
     if(angle0 > M_PI_2){
-        printf("\x1b[31mThrow angle has to be less than pi/2!\x1b[0m\n");
+        printf("\x1b[91mThrow angle has to be less than pi/2!\x1b[0m\n");
         return 0;
     }
 
@@ -42,7 +49,18 @@ int main(){
     }
 
     if(-1e-14 >= friction){
-        printf("\x1b[31mFriction can't be less than 0!\x1b[0m\n");
+        printf("\x1b[91mFriction can't be less than 0!\x1b[0m\n");
+        return 0;
+    }
+
+    printf("Enter a time period for calculating (in seconds, usually 1e-5): ");
+    if(1 != scanf("%lf", &dt)){
+        perror("Scanf failed");
+        return -1;
+    }
+
+    if(1e-10 > dt){
+        printf("\x1b[91mToo small or negative time period!\x1b[0m\n");
         return 0;
     }
 
@@ -53,8 +71,13 @@ int main(){
 
     int n = 0;
 
-    while(x > -1e-14){
-        friction_instance(&x, &y, &speedx, &speedy, friction);
+    while(y > -1e-14){
+        friction_instance(&x, &speedx, friction, dt);
+        speedy -= 9.8 * dt;
+        friction_instance(&y, &speedy, friction, dt);
         n += 1;
     }
+
+    printf("\x1b[92m%lf\x1b[0m\n", dt * n);
+    return 1;
 }
