@@ -81,7 +81,7 @@ int main(){
         friction_instance(&y, &speedy, friction, dt);
         n += 1;
     }
-    printf("Time moved upwards: \x1b[92m%lf\x1b[0m\n", dt * n);
+    printf("Time moved upwards: \x1b[92;1m%lf\x1b[0m\n", dt * n);
     while(y > -1e-14){
         friction_instance(&x, &speedx, friction, dt);
         speedy -= 9.8 * dt;
@@ -89,7 +89,7 @@ int main(){
         n += 1;
     }
 
-    printf("Time in air: \x1b[92m%lf\x1b[0m\n", dt * n);
-    printf("Distance flown: \x1b[92m%lf\x1b[0m\n", x);
+    printf("Time in air: \x1b[92;1m%lf\x1b[0m\n", dt * n);
+    printf("Distance flown: \x1b[92;1m%lf\x1b[0m\n", x);
     return 1;
 }
