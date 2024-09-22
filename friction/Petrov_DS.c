@@ -7,7 +7,7 @@ int friction_instance(double* x, double* speed_x, double friction, double dt){
 
     x1 = *x + (*speed_x * dt);
     speed_x1 = *speed_x - (*speed_x * friction);
-    printf("Coordinate:%lf, speed:%lf\n", x1, speed_x1);
+//debug    printf("Coordinate:%lf, speed:%lf\n", x1, speed_x1);
 
     *x = x1;
     *speed_x = speed_x1;
@@ -71,6 +71,13 @@ int main(){
 
     int n = 0;
 
+    while(speedy > -1e-14){
+        friction_instance(&x, &speedx, friction, dt);
+        speedy -= 9.8 * dt;
+        friction_instance(&y, &speedy, friction, dt);
+        n += 1;
+    }
+    printf("Time moved upwards: \x1b[92m%lf\x1b[0m\n", dt * n);
     while(y > -1e-14){
         friction_instance(&x, &speedx, friction, dt);
         speedy -= 9.8 * dt;
@@ -78,6 +85,7 @@ int main(){
         n += 1;
     }
 
-    printf("\x1b[92m%lf\x1b[0m\n", dt * n);
+    printf("Time in air: \x1b[92m%lf\x1b[0m\n", dt * n);
+    printf("Distance flown: \x1b[92m%lf\x1b[0m\n", x);
     return 1;
 }
