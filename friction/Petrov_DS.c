@@ -6,7 +6,7 @@ int friction_instance(double* x, double* speed_x, double friction, double dt){
     double x1, speed_x1;
 
     x1 = *x + (*speed_x * dt);
-    speed_x1 = *speed_x - (*speed_x * friction);
+    speed_x1 = *speed_x - (*speed_x * friction * dt);
 //debug    printf("Coordinate:%lf, speed:%lf\n", x1, speed_x1);
 
     *x = x1;
