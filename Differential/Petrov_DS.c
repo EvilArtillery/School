@@ -83,7 +83,7 @@ int main(){
         return -1;
     }
 
-    if(0 == psi0 && 0 == phi0){
+    if(1e-14 >= fabs(psi0) && 1e-14 >= fabs(phi0)){
         printf("\x1b[31mError: no movement\n\x1b[0m");
         return 0;
     }
@@ -95,16 +95,16 @@ int main(){
         return -1;
     }
 
-    if(0 >= dt){
+    if(1e-14 >= dt){
         printf("\x1b[31mError: step has to be more than 0\n\x1b[0m");
         return 0;
     }
 
     double result;
-    if(0 == psi0) result = oscillator_no_speed(phi0, dt, l, g);
+    if(1e-14 >= fabs(psi0)) result = oscillator_no_speed(phi0, dt, l, g);
     else result = speed_to_no_speed(phi0, psi0, dt, l, g);
 
     if(0 == result) return 0;
     printf("%lf\n", result);
-    return(1);
+    return 1;
 }

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-int friction_instance(double* x, double* speed_x, double friction, double dt){
+void friction_instance(double* x, double* speed_x, double friction, double dt){
     double x1, speed_x1;
 
     x1 = *x + (*speed_x * dt);
