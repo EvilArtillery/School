@@ -3,7 +3,7 @@ all: a.out
 a.out: main.o lib.o 
 	gcc $^
 %.o: %.c lib.h
-	gcc -c $(GCFLAGS) $< -o $@
+	gcc -c $(GCFLAGS) $< -o $@ -lm
 clean:
 	rm *.o*
 rm_out:
