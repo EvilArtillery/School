@@ -28,6 +28,10 @@ int main(){
     perror("Scanf failed");
     return -1;
   }
+  if(1e-14 > delta){
+    printf("\x1b[91mError! The minimal interval has to be more than zero!\x1b[0m\n");
+    return 0;
+  }
 
   if(1e-14 > (b - a - delta)){
     printf("\x1b[91mError! The whole interval has to be more than a minimal one!\x1b[0m\n");
