@@ -12,6 +12,20 @@ void friction_instance(double* x, double* speed_x, double friction, double dt){
     *speed_x = speed_x1;
 }
 
+#ifdef SLON
+void friction_instance_height(double* x, double* speed_x, double friction, double dt){
+    double x1, speed_x1, frict;
+
+    x1 = *x + (*speed_x * dt);
+    frict = *speed_x * friction * dt * sqrt(1000 - *x);
+    speed_x1 = *speed_x - frict;
+
+    *x = x1;
+    *speed_x = speed_x1;
+}
+#endif //SLON
+
+
 int main(){
     double speed0 = 0, angle0 = 0, friction = 0, dt = 0;
 
@@ -77,7 +91,12 @@ int main(){
     while(speedy > -1e-14){
         friction_instance(&x, &speedx, friction, dt);
         speedy -= 9.8 * dt;
+        #ifndef SLON
         friction_instance(&y, &speedy, friction, dt);
+        #endif //NO SLON
+        #ifdef SLON
+        friction_instance_height(&y, &speedy, friction, dt);
+        #endif //SLON
         n += 1;
     }
     printf("Time moved upwards: \x1b[92;1m%lf\x1b[0m\n", dt * n);
@@ -85,12 +104,13 @@ int main(){
     while(y > -1e-14){
         friction_instance(&x, &speedx, friction, dt);
         speedy -= 9.8 * dt;
+        #ifndef SLON
         friction_instance(&y, &speedy, friction, dt);
+        #endif //NO SLON
+        #ifdef SLON
+        friction_instance_height(&y, &speedy, friction, dt);
+        #endif //SLON
         n += 1;
-
-        #ifdef DEBUG
-        printf("X: %lf\nSpeed X: %lf\nY: %lf\nSpeed Y: %lf\n", x, speedx, y, speedy);
-        #endif //DEBUG
     }
 
     printf("Time in air: \x1b[92;1m%lf\x1b[0m\n", dt * n);
