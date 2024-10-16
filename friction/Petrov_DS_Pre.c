@@ -17,7 +17,7 @@ void friction_instance_height(double* x, double* speed_x, double friction, doubl
     double x1, speed_x1, frict;
 
     x1 = *x + (*speed_x * dt);
-    frict = *speed_x * friction * dt * sqrt(1000 - *x);
+    frict = *speed_x * friction * dt * pow(M_E, -*x);
     speed_x1 = *speed_x - frict;
 
     *x = x1;
@@ -91,12 +91,12 @@ int main(){
     while(speedy > -1e-14){
         friction_instance(&x, &speedx, friction, dt);
         speedy -= 9.8 * dt;
-        #ifndef SLON
-        friction_instance(&y, &speedy, friction, dt);
-        #endif //NO SLON
         #ifdef SLON
         friction_instance_height(&y, &speedy, friction, dt);
         #endif //SLON
+        #ifndef SLON
+        friction_instance(&y, &speedy, friction, dt);
+        #endif //NO SLON
         n += 1;
     }
     printf("Time moved upwards: \x1b[92;1m%lf\x1b[0m\n", dt * n);
@@ -104,12 +104,12 @@ int main(){
     while(y > -1e-14){
         friction_instance(&x, &speedx, friction, dt);
         speedy -= 9.8 * dt;
-        #ifndef SLON
-        friction_instance(&y, &speedy, friction, dt);
-        #endif //NO SLON
         #ifdef SLON
         friction_instance_height(&y, &speedy, friction, dt);
         #endif //SLON
+        #ifndef SLON
+        friction_instance(&y, &speedy, friction, dt);
+        #endif //NO SLON
         n += 1;
     }
 
