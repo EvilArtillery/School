@@ -1,10 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+
 #include "lib.h"
+
+double function(double x){
+  return x * x;
+}
 
 int main(){
   double a, b, delta;
-  int n;
 
   printf("Enter the left limit of your interval: ");
   if(1 != scanf("%lf", &a)){
@@ -38,7 +43,7 @@ int main(){
     return 0;
   }
 
-  
+  printf("\x1b[92m%lf\x1b[0m\n", divide(a, b, function, delta));
 
   return 1;
 }

@@ -21,7 +21,7 @@ double divide(double a, double b, double f(double), double delta){
 
   sumhalfs = integral(a, middle, f) + integral(middle, b, f);
 
-  if(delta > fabs(sum1 - sumhalfs)){
+  if(delta > 10 * fabs(sum1 - sumhalfs)){
     double result = divide(a, middle, f, delta) + divide(middle, b, f, delta);
     return result;
   }
