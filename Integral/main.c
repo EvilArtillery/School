@@ -43,7 +43,9 @@ int main(){
     return 0;
   }
 
-  printf("\x1b[92m%lf\x1b[0m\n", divide(a, b, function, delta));
+  double result;
+
+  printf("\x1b[92m%lf\x1b[0m\n", result);
 
   return 1;
 }
