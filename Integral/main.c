@@ -43,7 +43,23 @@ int main(){
     return 0;
   }
 
-  double result;
+  double result = 0;
+
+  double length = (b - a) / 100.;
+  double x1 = a;
+
+  while(x1 < b){
+    if(divide(x1, x1 + length, function, delta)){
+      length /= 2.;
+    }
+    else if(unite(x1, x1 + length, x1 + (2 * length), function)){
+      length *= 2;
+    }
+
+    result += integral(x1, x1 + length, function);
+    x1 += length;
+  }
+
 
   printf("\x1b[92m%lf\x1b[0m\n", result);
 
