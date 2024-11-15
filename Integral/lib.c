@@ -30,7 +30,7 @@ int divide(double a, double b, double f(double), double delta){
   sum1 = integral(a, b, f, fa, fb);
   sumhalfs = integral(a, middle, f, fa, fmid) + integral(middle, b, f, fmid, fb);
 
-  if(1e-12 < fabs(sum1 - sumhalfs)){
+  if(1e-10 < fabs(sum1 - sumhalfs)){
     return 1;
   }
 
@@ -46,6 +46,6 @@ int unite(double a, double b, double c, double f(double)){
   double sumbc = integral(b, c, f, fb, fc);
   double sumac = integral(a, c, f, fa, fc);
 
-  if(fabs(sumab + sumbc - sumac) < 1e-12) return 1;
+  if(fabs(sumab + sumbc - sumac) < 1e-10) return 1;
   return 0;
 }
