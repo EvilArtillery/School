@@ -55,9 +55,11 @@ int main(){
     else if(unite(x1, x1 + length, x1 + (2 * length), function)){
       length *= 2;
     }
-
-    result += integral(x1, x1 + length, function);
-    x1 += length;
+    else{
+      result += integral(x1, x1 + length, function, 0, 0);
+      x1 += length;
+//      printf("Step, l=%lf\n", length);
+    }
   }
 
 

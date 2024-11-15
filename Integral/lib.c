@@ -4,9 +4,13 @@
 
 #include "lib.h"
 
-double integral(double a, double b, double f(double)){
+double integral(double a, double b, double f(double), double f1, double f2){
   double result;
-  result = f(a) + f(b);
+  double left = f1;
+  double right = f2;
+  if(1e-14 >= fabs(f1)) left = f(a);
+  if(1e-14 >= fabs(f2)) right = f(b);
+  result = left + right;
   result *= (b - a);
   result /= 2.;
   return result;
@@ -16,10 +20,15 @@ int divide(double a, double b, double f(double), double delta){
   double sum1, sumhalfs;
   double middle = (a + b) / 2.;
 
-  sum1 = integral(a, b, f);
   if(delta > (middle - a)) return 0;
 
-  sumhalfs = integral(a, middle, f) + integral(middle, b, f);
+  double fa, fb, fmid;
+  fa = f(a);
+  fb = f(b);
+  fmid = f(middle);
+
+  sum1 = integral(a, b, f, fa, fb);
+  sumhalfs = integral(a, middle, f, fa, fmid) + integral(middle, b, f, fmid, fb);
 
   if(1e-12 < fabs(sum1 - sumhalfs)){
     return 1;
@@ -29,9 +38,13 @@ int divide(double a, double b, double f(double), double delta){
 }
 
 int unite(double a, double b, double c, double f(double)){
-  double sumab = integral(a, b, f);
-  double sumbc = integral(b, c, f);
-  double sumac = integral(a, c, f);
+  double fa, fb, fc;
+  fa = f(a);
+  fb = f(b);
+  fc = f(c);
+  double sumab = integral(a, b, f, fa, fb);
+  double sumbc = integral(b, c, f, fb, fc);
+  double sumac = integral(a, c, f, fa, fc);
 
   if(fabs(sumab + sumbc - sumac) < 1e-12) return 1;
   return 0;
