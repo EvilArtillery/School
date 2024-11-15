@@ -56,7 +56,7 @@ int main(){
       length *= 2;
     }
     else{
-      result += integral(x1, x1 + length, function, 0, 0);
+      result += integral(x1, x1 + length, function, NAN, NAN);
       x1 += length;
 //      printf("Step, l=%lf\n", length);
     }
