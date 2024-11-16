@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 #include "lib.h"
 
@@ -50,6 +51,8 @@ int main(){
   double I1, I2;
   double fx1, fx2, fx15;
 
+  time_t time1 = time(NULL);
+
   while(x1 < b){
     fx1 = function(x1);
     fx2 = function(x1 + length);
@@ -75,8 +78,11 @@ int main(){
     
   }
 
+  time_t time2 = time(NULL);
+
 
   printf("\x1b[92m%lf\x1b[0m\n", result);
+  printf("Time worked: \x1b[32m%.3lf\x1b[0m seconds\n", (double)(time2 - time1));
 
   return 1;
 }
