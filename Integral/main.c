@@ -69,7 +69,7 @@ int main(){
       continue;
     }
 
-    result += integral(x1, x1 + length, function, NAN, NAN);
+    result += integral(x1, x1 + length, function, fx1, fx2);
     x1 += length;
 //    printf("Step, l=%lf\n", length);
     
