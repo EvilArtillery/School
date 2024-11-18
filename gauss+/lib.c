@@ -20,13 +20,13 @@ static double f2(int n, int i, int j){
 	return(i > j? i:j) + n - n;
 }
 static double f3(int n, int i, int j){
-	return fabs(i - j) + n - n;
+	return abs(i - j) + n - n;
 }
 static double f4(int n, int i, int j){
 	return 1./(i + j + 1) + n - n;
 }
 void fill_B (double *b, double *a, int n){
-	for (int i = 0; i < n; i++) b[i] = 0;
+//	for (int i = 0; i < n; i++) b[i] = 0;
 	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += a[j*n + i];
 }
 
