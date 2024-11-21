@@ -50,11 +50,11 @@ int main(){
   double x1 = a;
   double I1, I2;
   double fx1, fx2, fx15;
+  fx1 = function(x1);
 
   time_t time1 = time(NULL);
 
   while(x1 < b){
-    fx1 = function(x1);
     fx2 = function(x1 + length);
     fx15 = function(x1 + (length * 0.5));
 
@@ -72,8 +72,9 @@ int main(){
       continue;
     }
 
-    result += integral(x1, x1 + length, function, fx1, fx2);
+    result += I1;
     x1 += length;
+    fx1 = fx2;
 //    printf("Step, l=%lf\n", length);
     
   }
