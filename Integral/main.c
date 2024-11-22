@@ -51,6 +51,7 @@ int main(){
   double I1, I2;
   double fx1, fx2, fx15;
   fx1 = function(x1);
+  int changing = 0;
 
   time_t time1 = time(NULL);
 
@@ -62,19 +63,24 @@ int main(){
     I2 = integral(x1, x1 + (length * 0.5), function, fx1, fx15) + integral(x1 + (length * 0.5), x1 + length, function, fx15, fx2);
 
     if(1e-12 < fabs(I1 - I2)){
-      if(delta < (length * 0.5)){
+      if((delta < (length * 0.5)) && (1 != changing)){
         length *= 0.5;
+        changing = -1;
         continue;
       }
     }
     else if(1e-13 > fabs(I1 - I2)){
-      length *= 2;
-      continue;
+      if(-1 != changing){
+        length *= 2;
+        changing = 1;
+        continue;
+      }
     }
 
     result += I1;
     x1 += length;
     fx1 = fx2;
+    changing = 0;
 //    printf("Step, l=%lf\n", length);
     
   }
