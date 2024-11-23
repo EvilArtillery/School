@@ -62,14 +62,14 @@ int main(){
     I1 = integral(x1, x1 + length, function, fx1, fx2);
     I2 = integral(x1, x1 + (length * 0.5), function, fx1, fx15) + integral(x1 + (length * 0.5), x1 + length, function, fx15, fx2);
 
-    if(1e-12 < fabs(I1 - I2)){
-      if((delta < (length * 0.5)) && (1 != changing)){
+    if(delta < fabs(I1 - I2)){
+      if((1e-10 < (length * 0.5)) && (1 != changing)){
         length *= 0.5;
         changing = -1;
         continue;
       }
     }
-    else if(1e-13 > fabs(I1 - I2)){
+    else if((delta * 0.1) > fabs(I1 - I2)){
       if(-1 != changing){
         length *= 2;
         changing = 1;
