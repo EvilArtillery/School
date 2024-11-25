@@ -32,7 +32,7 @@ void fill_B (double *b, double *a, int n){
 
 int get_matrix(char* filename, double *a, int n){
 	FILE *file  = NULL;
-	file = fopen( filename, "r");
+	file = fopen(filename, "r");
 	if (file == NULL) return -1;
 	for (int i = 0; i < n*n; i++){
 		if (fscanf(file, "%lf", a + i) == EOF) {

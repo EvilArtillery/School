@@ -13,9 +13,9 @@ int solve(int n, double *a, double *b, double *x){
         break;
       }
     }
-//    for (k = I; k < n; k++){
-//      if (a[k*n + i] > a[I*n + i]) I = k;
-//    }
+    for (k = I; k < n; k++){
+      if (a[k*n + i] > a[I*n + i]) I = k;
+    }
     if ( I == -1 ) {
       printf( "Error!\n" ) ;
       return -1 ;
