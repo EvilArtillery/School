@@ -37,7 +37,7 @@ int main(int argc,char *argv[]){
 		    free(a);
 	        return -1;
 		}
-	    if (get_matrix(argv[5], a, n) < 0){
+	    if (get_matrix(argv[4], a, n) < 0){
 			printf("Error in file\n");
 			free(a);
 	       	return -1;
