@@ -5,15 +5,18 @@
 #include <string.h>
 #include <stdint.h>
 
-char type[3];
-
+char* type;
 static int check_type(const char *fpath, const struct stat *sb, int tflag, struct FTW *ftwbuf){
-    char* pos = strstr(fpath, type);
+    if(FTW_D == tflag) return 0;
+    
+    char* pos = strrchr(fpath, '.');
     if(NULL == pos){
         return 0;
     }
-    
-    printf("\x1b[93m%-40s\x1b[0m\n", fpath);
+
+    if(0 == strcmp(pos, type)){
+        printf("\x1b[93m%-40s\x1b[0m\n", fpath);
+    }
     
     return 0;
 }
@@ -29,10 +32,12 @@ int main(int argc, char *argv[]){
         return 0;
     }
 
-    if(!sscanf(argv[2], "%3s", type)){
+    type = malloc(sizeof(char) * strlen(argv[2]));
+    if(!sscanf(argv[2], "%s", type)){
         printf("\x1b[91mError!\x1b[0m\n");
         return -1;
     }
+
 
     if (nftw(argv[1], check_type, 20, 0) == -1) {
         perror("nftw");
