@@ -17,16 +17,16 @@ static double f1(int n, int i, int j){
 	return (i > j? n - i: n - j);
 }
 static double f2(int n, int i, int j){
-	return(i > j? i:j) + n - n;
+	return(i > j? i+n:j+n);
 }
 static double f3(int n, int i, int j){
-	return abs(i - j) + n - n;
+	return abs(i - j) * n;
 }
 static double f4(int n, int i, int j){
-	return 1./(i + j + 1) + n - n;
+	return n/(i + j + 1);
 }
 void fill_B (double *b, double *a, int n){
-//	for (int i = 0; i < n; i++) b[i] = 0;
+	for (int i = 0; i < n; i++) b[i] = 0;
 	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += a[j*n + i];
 }
 
@@ -50,7 +50,7 @@ int calculate_matrix(int k, double *a, int n){
 	if (k == 2) func = f2;
 	if (k == 3) func = f3;
 	if (k == 4) func = f4;
-	for (int i = 0; i < n*n; i++) a[i] = func(n, i/n, i - (i/n)*n);
+	for (int i = 0; i < n*n; i++) a[i] = func(n, i/n, i);
 	return 1;	
 }
 
@@ -60,7 +60,7 @@ void nevyazka(double *a, double *b, double *x, int n){
 
 	for (int j = 0; j < n; j++){
 		printf("%lf\n", tmp[j]);
-	    	na += fabs(tmp[j] - b[j]);
+	    na += fabs(tmp[j] - b[j]);
 		nb += fabs(b[j]);
         }
 	printf("nevyazka: %lf\n", na/nb);
