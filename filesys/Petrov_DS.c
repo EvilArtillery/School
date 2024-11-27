@@ -7,7 +7,7 @@
 
 char* type;
 static int check_type(const char *fpath, const struct stat *sb, int tflag, struct FTW *ftwbuf){
-    if(FTW_D == tflag) return 0;
+    if(FTW_F != tflag) return 0;
     
     char* pos = strrchr(fpath, '.');
     if(NULL == pos){
