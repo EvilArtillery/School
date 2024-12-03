@@ -11,23 +11,23 @@ int main(int argc,char *argv[]){
 	int n, m, k;
 
  	if (sscanf(argv[1], "%d", &n) != 1){
-		printf("Error in n\n");       
+		printf("Error in n\n");
 		return -1;
 	}
 	
 	if (sscanf(argv[2], "%d", &m) != 1){
-		printf("Error in m\n");       
+		printf("Error in m\n");
 		return -1;
 	}
 	
 	if (sscanf(argv[3], "%d", &k) != 1){
-		printf("Error in k\n");       
+		printf("Error in k\n");
 		return -1;	
 	}
 	
 	double *a = malloc(n*n*sizeof(*a));
 	if (a == NULL){
-		printf("Error in a\n");       
+		printf("Error in a\n");
 		return -1;
 	}
 	
@@ -70,6 +70,7 @@ int main(int argc,char *argv[]){
 		return -1;
 	}
 	for(int i = 0; i < m; i++) printf("%lf\n", x[i]);
+	printf("\v");
 	nevyazka(a, b, x, n);
 	free(a);
 	free(b);

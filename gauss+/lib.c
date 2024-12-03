@@ -20,7 +20,7 @@ static double f2(int n, int i, int j){
 	return(i > j? i+n:j+n);
 }
 static double f3(int n, int i, int j){
-	return abs(i - j) * n;
+	return (abs(i - j) + 1) * n;
 }
 static double f4(int n, int i, int j){
 	return n/(i + j + 1);
@@ -55,14 +55,13 @@ int calculate_matrix(int k, double *a, int n){
 }
 
 void nevyazka(double *a, double *b, double *x, int n){
-	double *tmp = pro_m(a, x, n), na = 0, nb = 0;
+	double *tmp = pro_m(a, x, n), na = 0;
 	if (NULL == tmp) return;
 
 	for (int j = 0; j < n; j++){
 		printf("%lf\n", tmp[j]);
 	    na += fabs(tmp[j] - b[j]);
-		nb += fabs(b[j]);
-        }
-	printf("nevyazka: %lf\n", na/nb);
+    }
+	printf("nevyazka: %lf\n", na);
 	return;
 }
