@@ -59,7 +59,7 @@ void nevyazka(double *a, double *b, double *x, int n){
 	if (NULL == tmp) return;
 
 	for (int j = 0; j < n; j++){
-		printf("%lf\n", tmp[j]);
+		printf("%-3.2lf, %-3.2lf\n", tmp[j], b[j]);
 	    na += fabs(tmp[j] - b[j]);
     }
 	printf("nevyazka: %lf\n", na);
