@@ -59,9 +59,18 @@ void nevyazka(double *a, double *b, double *x, int n){
 	if (NULL == tmp) return;
 
 	for (int j = 0; j < n; j++){
-		printf("%-3.2lf, %-3.2lf\n", tmp[j], b[j]);
+//		printf("%-3.2lf, %-3.2lf\n", tmp[j], b[j]);
 	    na += fabs(tmp[j] - b[j]);
     }
 	printf("nevyazka: %lf\n", na);
 	return;
 }
+
+void print_matrix (double *a, double *b, int n){
+
+	for (int i = 0; i < n; i++){
+		for (int j = 0; j < n; j++){printf("%f\t",a[i*n +j]);};	
+		printf("%f\n",b[i]);
+	}	
+		printf("\n");
+}	
