@@ -15,6 +15,10 @@ int main(int argc,char *argv[]){
 		printf("Error in n\n");
 		return -1;
 	}
+	if(1 > n){
+		printf("\x1b[91mError! The smallest possible matrix is 1 by 1!\x1b[0m\n");
+		return 0;
+	}
 	
 	if (sscanf(argv[2], "%d", &m) != 1){
 		printf("Error in m\n");
