@@ -1,7 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
-#include"lib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include "lib.h"
 
 static double* pro_m(double *a, double *x, int n){
 	double *tmp = malloc(n*sizeof(*tmp));
@@ -27,7 +27,7 @@ static double f4(int n, int i, int j){
 }
 void fill_B (double *b, double *a, int n){
 	for (int i = 0; i < n; i++) b[i] = 0;
-	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += a[j*n + i];
+	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += (a[j*n + i] * (random() % 10));
 }
 
 int get_matrix(char* filename, double *a, int n){
