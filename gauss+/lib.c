@@ -25,9 +25,10 @@ static double f3(int n, int i, int j){
 static double f4(int n, int i, int j){
 	return n/(i + j + 1);
 }
+
 void fill_B (double *b, double *a, int n){
 	for (int i = 0; i < n; i++) b[i] = 0;
-	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += (a[j*n + i] * (random() % 10));
+	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += a[j*n + i];
 }
 
 int get_matrix(char* filename, double *a, int n){
