@@ -1,33 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include "lib.h"
 
-static double* pro_m(double *a, double *x, int n){
-	double *tmp = malloc(n*sizeof(*tmp));
-	if (NULL == tmp) return NULL;
-	for (int i = 0; i < n; i++) tmp[i] = 0;
-	for (int j = 0; j < n; j++){
-		for (int i = 0; i < n; i++) tmp[j] += x[i]*a[j*n + i];
-	}
-	return tmp;
-}	
-
 static double f1(int n, int i, int j){
-	return (i > j? n - i: n - j);
+	return (i > j? n - i + 1: n - j + 1);
 }
 static double f2(int n, int i, int j){
-	return(i > j? i+n:j+n);
+	return(i > j? i:j);
+	n = n;
 }
 static double f3(int n, int i, int j){
-	return (abs(i - j) + 1) * n;
+	return abs(i - j);
+	n = n;
 }
 static double f4(int n, int i, int j){
-	return n/(i + j + 1);
+	return 1./(i + j - 1);
+	n = n;
 }
 
 void fill_B (double *b, double *a, int n){
-	for (int i = 0; i < n; i++) b[i] = 0;
+	memset(b, 0, n*n);
 	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += a[j*n + i];
 }
 
@@ -37,10 +31,11 @@ int get_matrix(char* filename, double *a, int n){
 	if (file == NULL) return -1;
 	for (int i = 0; i < n*n; i++){
 		if (fscanf(file, "%lf", a + i) == EOF) {
-			printf("Недостаточно данных в файле\n");
+			printf("\x1b[91m Недостаточно данных в файле\x1b[0m\n");
 			return -1;
 		}
 	}
+	print_matrix(a, n);
 	return 1;	
 }
 
@@ -56,22 +51,26 @@ int calculate_matrix(int k, double *a, int n){
 }
 
 void nevyazka(double *a, double *b, double *x, int n){
-	double *tmp = pro_m(a, x, n), na = 0;
-	if (NULL == tmp) return;
+	double na = 0, nb = 0;
 
 	for (int j = 0; j < n; j++){
-//		printf("%-3.2lf, %-3.2lf\n", tmp[j], b[j]);
-	    na += fabs(tmp[j] - b[j]);
+//		printf("%-3.2lf, %-3.2lf\n", a[j], b[j]);
+	    na += fabs(a[j]*x[j] - b[j]);
+		nb += fabs(b[j]);
     }
-	printf("nevyazka: %lf\n", na);
+	printf("nevyazka: %e\n", na/nb);
 	return;
 }
 
-void print_matrix (double *a, double *b, int n){
+void print_matrix (double *a, int n){
+	printf("\x1b[95m");
+	printf("\n");
 
 	for (int i = 0; i < n; i++){
-		for (int j = 0; j < n; j++){printf("%f\t",a[i*n +j]);};	
-		printf("%f\n",b[i]);
-	}	
+		for (int j = 0; j < n; j++) printf(" %10.3e", a[i*n +j]);	
 		printf("\n");
-}	
+	}
+
+	printf("\x1b[0m");
+	printf("\n\n");
+}

@@ -60,6 +60,7 @@ int main(int argc,char *argv[]){
 			printf("Error in calc\n");
 			return -1;
 		}
+		print_matrix(a, n);
 	}
 	
 	double *b = malloc(n*sizeof(*b)), *x = malloc(n*sizeof(*x));
@@ -68,9 +69,11 @@ int main(int argc,char *argv[]){
 		return -1;
 	}
 	if (NULL == x) {
-        	printf("Error in x\n");
-        	return -1;
-    	}
+       	printf("Error in x\n");
+       	return -1;
+    }
+
+
 	fill_B(b, a, n);
 	double* b_copy = malloc(n * sizeof(double));
 	memcpy(b_copy, b, (n * sizeof(double)));
@@ -78,10 +81,10 @@ int main(int argc,char *argv[]){
 	memcpy(a_copy, a, (n * n * sizeof(double)));
 
 	
-//	print_matrix(a,b,n);
+//	print_matrix(a, n);
 	if (solve(n, a_copy, b_copy, x)< 0) {
-		for (int i = 0; i < n; i++) printf("%lf ", a[i*n]);
-		printf("%lf \n", b[0]);
+		for (int i = 0; i < n; i++) printf("%lf ", a_copy[i*n]);
+		printf("%lf \n", b_copy[0]);
 		printf("Error in solve\n");
 		return -1;
 	}

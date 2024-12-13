@@ -12,15 +12,15 @@ int solve(int n, double *a, double *b, double *x){
   for ( i = 0 ; i < n ; i++) {
     I = -1;
     max = 1e-14;
-//    printf("\x1b[91m%i\x1b[0m\n", i);
+    printf("\x1b[91m%i\x1b[0m\n", i);
     for (j = i ; j < n; j++){
-//      printf("\x1b[92m%lf\x1b[0m\n", a[j*n + i]);
-      if ( fabs (a[j*n + i]) > max ) {
+      printf("\x1b[92m%3.2lf \x1b[0m", a[i*n + j]);
+      if ( fabs (a[i*n + j]) > max ) {
         I = j ;
-	      max = fabs (a[j*n + i]);
+	      max = fabs (a[i*n + j]);
       }
     }
-//    printf("\x1b[96m%lf\x1b[0m\n\n", b[i]);
+    printf("\x1b[96m%lf\x1b[0m\n\n", b[i]);
 
     if ( I == -1 ) {
       printf( "Error!\n" ) ;
