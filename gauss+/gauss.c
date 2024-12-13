@@ -44,7 +44,7 @@ int solve(int n, double *a, double *b, double *x){
       tmp = a[j*n + i] / a[i*n + i];
       b[j] -= b[i]*tmp;
       for ( k = i ; k < n ; k++) {
-        a[j*n + k] -= a[i*n + k]*tmp;
+        a[j*n + k] -= a[i*n + k] * tmp;
       }
     }
 

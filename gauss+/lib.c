@@ -8,7 +8,7 @@ static double f1(int n, int i, int j){
 	return (i > j? n - i + 1: n - j + 1);
 }
 static double f2(int n, int i, int j){
-	return(i > j? i:j);
+	return (i > j? i:j);
 	n = n;
 }
 static double f3(int n, int i, int j){
@@ -36,7 +36,7 @@ int get_matrix(char* filename, double *a, int n){
 		}
 	}
 	print_matrix(a, n);
-	return 1;	
+	return 1;
 }
 
 int calculate_matrix(int k, double *a, int n){
