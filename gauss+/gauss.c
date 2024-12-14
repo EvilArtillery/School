@@ -44,6 +44,7 @@ int solve(int n, double *a, double *b, double *x){
       b[j] -= b[i]*tmp;
       for ( k = i ; k < n ; k++) {
         a[j*n + k] -= a[i*n + k] * tmp;
+        if(1e-14 > fabs(a[j*n + k])) a[j*n + k] = 0;
       }
     }
 
