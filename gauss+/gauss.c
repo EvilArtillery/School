@@ -14,13 +14,12 @@ int solve(int n, double *a, double *b, double *x){
     max = 1e-14;
     printf("\x1b[91m%i\x1b[0m\n", i);
     for (j = i ; j < n; j++){
-      printf("\x1b[92m%3.2lf \x1b[0m", a[i*n + j]);
-      if ( fabs (a[i*n + j]) > max ) {
+      printf("\x1b[92m%3.2lf \x1b[0m", a[j*n + i]);
+      if ( fabs (a[j*n + i]) > max ) {
         I = j ;
-	      max = fabs (a[i*n + j]);
+        max = fabs (a[j*n + i]);
       }
     }
-    printf("\x1b[96m%lf\x1b[0m\n\n", b[i]);
 
     if ( I == -1 ) {
       printf( "Error!\n" ) ;
@@ -38,7 +37,7 @@ int solve(int n, double *a, double *b, double *x){
       }
     }
 
-    print_matrix(a, n);
+    print_matrix(a, b, n);
 
     for ( j = i + 1 ; j < n ; j ++) {
       tmp = a[j*n + i] / a[i*n + i];
@@ -48,7 +47,7 @@ int solve(int n, double *a, double *b, double *x){
       }
     }
 
-    print_matrix(a, n);
+    print_matrix(a, b, n);
   }
 
   for ( i = n - 1 ; i >= 0 ; i -- ) {

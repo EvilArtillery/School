@@ -22,8 +22,16 @@ static double f4(int n, int i, int j){
 
 void fill_B (double *b, double *a, int n){
 	memset(b, 0, n*n);
-	for (int j = 0; j < n; j++) for(int i = 0; i < n; i++) b[j] += a[j*n + i];
-}
+	for (int j = 0; j < n; j++) {
+		for(int i = 0; i <= (n+1)/2; i++) {
+			printf("a[%d,%d] %10.3f\n",j,2*i,a[j*n + 2*i]);
+			b[j] += a[j*n + 2*i];
+		}
+
+		printf("b[%d] %10.3f\n", j, b[j]);
+		printf("\n");
+	}
+}	
 
 int get_matrix(char* filename, double *a, int n){
 	FILE *file  = NULL;
@@ -35,7 +43,6 @@ int get_matrix(char* filename, double *a, int n){
 			return -1;
 		}
 	}
-	print_matrix(a, n);
 	return 1;
 }
 
@@ -51,24 +58,30 @@ int calculate_matrix(int k, double *a, int n){
 }
 
 void nevyazka(double *a, double *b, double *x, int n){
-	double na = 0, nb = 0;
+	double na = 0, nb = 0, ntot = 0;
 
 	for (int j = 0; j < n; j++){
-//		printf("%-3.2lf, %-3.2lf\n", a[j], b[j]);
-	    na += fabs(a[j]*x[j] - b[j]);
+		na = 0;
+		for (int i = 0; i < n; i++){
+			na += a[j*n+i] * x[i];	
+		}
+		na -= b[j];
 		nb += fabs(b[j]);
-    }
-	printf("nevyazka: %e\n", na/nb);
+		ntot += fabs(na);
+    	}
+	printf("nevyazka: %e\n", ntot/nb);
 	return;
 }
 
-void print_matrix (double *a, int n){
+void print_matrix (double *a, double *b, int n){
 	printf("\x1b[95m");
 	printf("\n");
 
 	for (int i = 0; i < n; i++){
-		for (int j = 0; j < n; j++) printf(" %10.3e", a[i*n +j]);	
-		printf("\n");
+		for (int j = 0; j < n; j++) printf(" %10.3e", a[i*n +j]);
+		printf("\x1b[96m");
+		printf(" %10.3e",b[i]); 
+		printf("\n\x1b[95m");
 	}
 
 	printf("\x1b[0m");
