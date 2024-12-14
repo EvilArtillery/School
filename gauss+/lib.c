@@ -53,7 +53,7 @@ int calculate_matrix(int k, double *a, int n){
 	if (k == 2) func = f2;
 	if (k == 3) func = f3;
 	if (k == 4) func = f4;
-	for (int i = 0; i < n*n; i++) a[i] = func(n, i/n, i);
+	for (int i = 0; i < n; i++) for(int j = 0; j < n; j++) a[i*n + j] = func(n, i, j);
 	return 1;	
 }
 
@@ -63,12 +63,12 @@ void nevyazka(double *a, double *b, double *x, int n){
 	for (int j = 0; j < n; j++){
 		na = 0;
 		for (int i = 0; i < n; i++){
-			na += a[j*n+i] * x[i];	
+			na += a[j*n+i] * x[i];
 		}
 		na -= b[j];
 		nb += fabs(b[j]);
 		ntot += fabs(na);
-    	}
+    }
 	printf("nevyazka: %e\n", ntot/nb);
 	return;
 }

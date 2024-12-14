@@ -62,11 +62,12 @@ int main(int argc,char *argv[]){
 		}
 	}
 	
-	double *b = malloc(n*sizeof(*b)), *x = malloc(n*sizeof(*x));
+	double *b = malloc(n*sizeof(*b));
 	if (NULL == b) {
 		printf("Error in b\n");
 		return -1;
 	}
+	double *x = malloc(n*sizeof(double));
 	if (NULL == x) {
        	printf("Error in x\n");
        	return -1;
@@ -75,8 +76,10 @@ int main(int argc,char *argv[]){
 
 	fill_B(b, a, n);
 	double* b_copy = malloc(n * sizeof(double));
+	if(NULL == b_copy) return 0;
 	memcpy(b_copy, b, (n * sizeof(double)));
 	double* a_copy = malloc(n * n * sizeof(double));
+	if(NULL == a_copy) return 0;
 	memcpy(a_copy, a, (n * n * sizeof(double)));
 
 	
@@ -94,7 +97,11 @@ int main(int argc,char *argv[]){
 	free(a_copy);
 	free(b);
 	free(b_copy);
+	printf("Debug\n");
+	printf("%p\n", (void *)(x));
+	for(int i = 0; i < n; i++) printf("x[%d] =  %lf\n", i,  x[i]);
 	free(x);
+	printf("Freeed\n");
 	return 1;
 }
 
