@@ -1,6 +1,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "lib.h"
 
 
@@ -9,7 +10,7 @@ int solve(int n, double *a, double *b, double *x){
   int i, j, I, k;
   double max;
 
-  // timecount start
+  clock_t begin = clock();
 
   for ( i = 0 ; i < n ; i++) {
     I = -1;
@@ -60,7 +61,12 @@ int solve(int n, double *a, double *b, double *x){
     }
   }
 
-  // timecount print, stop
+  if(-1 == begin) printf("\x1b[31mRunning time is not available!\x1b[0m");
+  else {
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("\x1b[32mCPU time spent solving: %lf\n\x1b[0m", time_spent);
+  }
 
   return 1;
 }
