@@ -9,12 +9,14 @@ int solve(int n, double *a, double *b, double *x){
   int i, j, I, k;
   double max;
 
+  // timecount start
+
   for ( i = 0 ; i < n ; i++) {
     I = -1;
     max = 1e-14;
-    printf("\x1b[91m%i\x1b[0m\n", i);
+    // printf("\x1b[91m%i\x1b[0m\n", i);
     for (j = i ; j < n; j++){
-      printf("\x1b[92m%3.2lf \x1b[0m", a[j*n + i]);
+      // printf("\x1b[92m%3.2lf \x1b[0m", a[j*n + i]);
       if ( fabs (a[j*n + i]) > max ) {
         I = j ;
         max = fabs (a[j*n + i]);
@@ -37,7 +39,7 @@ int solve(int n, double *a, double *b, double *x){
       }
     }
 
-    print_matrix(a, b, n);
+    // print_matrix(a, b, n);
 
     for ( j = i + 1 ; j < n ; j ++) {
       tmp = a[j*n + i] / a[i*n + i];
@@ -48,7 +50,7 @@ int solve(int n, double *a, double *b, double *x){
       }
     }
 
-    print_matrix(a, b, n);
+    // print_matrix(a, b, n);
   }
 
   for ( i = n - 1 ; i >= 0 ; i -- ) {
@@ -57,6 +59,8 @@ int solve(int n, double *a, double *b, double *x){
       b[j] -= a[j*n + i]*x[i];
     }
   }
+
+  // timecount print, stop
 
   return 1;
 }

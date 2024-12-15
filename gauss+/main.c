@@ -83,7 +83,7 @@ int main(int argc,char *argv[]){
 	memcpy(a_copy, a, (n * n * sizeof(double)));
 
 	
-	print_matrix(a, b, n);
+	// print_matrix(a, b, n);
 	if (solve(n, a_copy, b_copy, x)< 0) {
 		for (int i = 0; i < n; i++) printf("%lf ", a_copy[i*n]);
 		printf("%lf \n", b_copy[0]);
@@ -97,9 +97,9 @@ int main(int argc,char *argv[]){
 	free(a_copy);
 	free(b);
 	free(b_copy);
-	printf("Debug\n");
-	printf("%p\n", (void *)(x));
-	for(int i = 0; i < n; i++) printf("x[%d] =  %lf\n", i,  x[i]);
+	// printf("Debug\n");
+	// printf("%p\n", (void *)(x));
+	// for(int i = 0; i < n; i++) printf("x[%d] =  %lf\n", i,  x[i]);
 	free(x);
 	printf("Freeed\n");
 	return 1;

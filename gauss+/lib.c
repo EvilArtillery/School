@@ -21,15 +21,17 @@ static double f4(int n, int i, int j){
 }
 
 void fill_B (double *b, double *a, int n){
-	memset(b, 0, n*n);
+	memset(b, 0, n);
 	for (int j = 0; j < n; j++) {
-		for(int i = 0; i <= (n+1)/2; i++) {
-			printf("a[%d,%d] %10.3f\n",j,2*i,a[j*n + 2*i]);
-			b[j] += a[j*n + 2*i];
+		for(int i = 0; i < n; i++) {
+			if(0 == i%2){
+				// printf("a[%d,%d] %10.3f\n",j, i, a[j*n + i]);
+				b[j] += a[j*n + i];
+			}
 		}
 
-		printf("b[%d] %10.3f\n", j, b[j]);
-		printf("\n");
+		// printf("b[%d] %10.3f\n", j, b[j]);
+		// printf("\n");
 	}
 }	
 
