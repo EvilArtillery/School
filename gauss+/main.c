@@ -3,6 +3,13 @@
 #include<string.h>
 #include"lib.h"
 
+#define FREE \
+{\
+if(a) free(a);\
+if(b) free(b);\
+if(x) free(x);\
+}
+
 int main(int argc,char *argv[]){
 	if (argc > 5 || argc < 4){
 		printf("Некорректный ввод данных\n");
@@ -35,56 +42,43 @@ int main(int argc,char *argv[]){
 		return -1;	
 	}
 	
-	double *a = malloc(n*n*sizeof(*a));
-	if (a == NULL){
-		printf("Error in a\n");
-		return -1;
-	}
+	double *a, *b, *x;
+	a = malloc(n*n*sizeof(*a));
+	b = malloc(n*sizeof(*b));
+	x = malloc(n*sizeof(double));
+	if (!a || !b || !x) {
+       	printf("Error in allocating memory\n");
+		FREE;
+       	return -1;
+    }
 	
 	if (k == 0){
         if (argc == 4){
 			printf("Error in k\n");
-		    free(a);
+			FREE;
 	        return -1;
 		}
 	    if (get_matrix(argv[4], a, n) < 0){
 			printf("Error in file\n");
-			free(a);
+			FREE;
 	       	return -1;
 		}
 	}
 	
 	else {
 		if (calculate_matrix(k, a, n) < 0){
-			free(a);       
+			FREE;
 			printf("Error in calc\n");
 			return -1;
 		}
 	}
-	
-	double *b = malloc(n*sizeof(*b));
-	if (NULL == b) {
-		printf("Error in b\n");
-		return -1;
-	}
-	double *x = malloc(n*sizeof(double));
-	if (NULL == x) {
-       	printf("Error in x\n");
-       	return -1;
-    }
-
 
 	fill_B(b, a, n);
-	double* b_copy = malloc(n * sizeof(double));
-	if(NULL == b_copy) return 0;
-	memcpy(b_copy, b, (n * sizeof(double)));
 
-	
 	// print_matrix(a, b, n);
-	if (solve(n, a, b_copy, x)< 0) {
-		for (int i = 0; i < n; i++) printf("%lf ", a[i*n]);
-		printf("%lf \n", b_copy[0]);
+	if (solve(n, a, b, x)< 0) {
 		printf("Error in solve\n");
+		FREE;
 		return -1;
 	}
 	for(int i = 0; i < m; i++) printf("x[%d] =  %lf\n", i,  x[i]);
@@ -94,29 +88,24 @@ int main(int argc,char *argv[]){
 	if(0 == k){
 		if(0 > get_matrix(argv[4], a, n)){
 			printf("Error in file\n");
-			free(a);
-			free(b);
-			free(b_copy);
-			free(x);
+			FREE;
 	       	return -1;
 		}
 	}
 	else {
 		if (calculate_matrix(k, a, n) < 0){
-			free(a);
-			free(b);
-			free(b_copy);
-			free(x);
+			FREE;
 			printf("Error in calc\n");
 			return -1;
 		}
 	}
 
+	//returning b to the original state
+	fill_B(b, a, n);
+
+	difference(x, n);
 	nevyazka(a, b, x, n);
-	free(a);
-	free(b);
-	free(b_copy);
-	free(x);
+	FREE;
 	return 1;
 }
 

@@ -21,7 +21,7 @@ static double f4(int n, int i, int j){
 }
 
 void fill_B (double *b, double *a, int n){
-	memset(b, 0, n);
+	memset(b, 0, n * sizeof(*b));
 	for (int j = 0; j < n; j++) {
 		for(int i = 0; i < n; i++) {
 			if(0 == i%2){
@@ -55,7 +55,7 @@ int calculate_matrix(int k, double *a, int n){
 	if (k == 2) func = f2;
 	if (k == 3) func = f3;
 	if (k == 4) func = f4;
-	for (int i = 0; i < n; i++) for(int j = 0; j < n; j++) a[i*n + j] = func(n, i, j);
+	for (int i = 0; i < n; i++) for(int j = 0; j < n; j++) a[i*n + j] = func(n, i+1, j+1);
 	return 1;	
 }
 
@@ -74,6 +74,16 @@ void nevyazka(double *a, double *b, double *x, int n){
 	printf("nevyazka: %e\n", ntot/nb);
 	return;
 }
+
+void difference(double* x, int n){
+	double res = 0;
+	for(int i = 0; i < n; i++){
+		if(0 == i%2) res += fabs(x[i] - 1);
+		else res += fabs(x[i]);
+	}
+	printf("\x1b[94mDifference: %lf\n\x1b[0m", res);
+}
+
 
 void print_matrix (double *a, double *b, int n){
 	printf("\x1b[95m");
