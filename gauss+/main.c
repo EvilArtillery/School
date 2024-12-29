@@ -81,7 +81,7 @@ int main(int argc,char *argv[]){
 		FREE;
 		return -1;
 	}
-	for(int i = 0; i < m; i++) printf("x[%d] =  %lf\n", i,  x[i]);
+	print_matrix_part(a, b, n, m);
 	printf("\v");
 
 	//returning a to the original state

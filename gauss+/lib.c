@@ -99,3 +99,19 @@ void print_matrix (double *a, double *b, int n){
 	printf("\x1b[0m");
 	printf("\n\n");
 }
+
+void print_matrix_part(double *a, double *b, int n, int m){
+	printf("\x1b[38;5;176m");
+	printf("\n");
+
+	for(int i = 0; i < m; i++){
+		for(int j = 0; j < m; j++) printf(" %10.3e", a[i*n + j]);
+		printf(" . . .");
+		printf("\x1b[38;5;178m");
+		printf(" %10.3e", b[i]);
+		printf("\n\x1b[38;5;176m");
+	}
+
+	printf("\x1b[0m");
+	printf("\n\n");
+}
