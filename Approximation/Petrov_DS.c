@@ -76,13 +76,13 @@ void main(){
         S.y += yi;
     }
 
-    dot S1 = sqrtc(S);
+    S = sqrtc(S);
 
     double answera, answerb, answerc;
 
-    answera = -S1.y;
-    answerb = S1.x;
-    answerc = S.x * answera + S.y * answerb;
+    answera = -S.y;
+    answerb = S.x;
+    answerc = centroid.x * answera + centroid.y * answerb;
     answerc *= -1;
 
     printf("Answer:\n");
