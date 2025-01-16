@@ -39,6 +39,10 @@ void main(){
         printf("\x1b[91mError! Scanf failed!\x1b[0m\n");
         return;
     }
+    if(2 > n){
+        printf("You can't approximate less than two points!\n");
+        return;
+    }
 
     dot* array = malloc(n * sizeof(dot));
     if(array == NULL){
