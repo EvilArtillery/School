@@ -76,7 +76,7 @@ void main(){
         S.y += yi;
     }
 
-    S = sqrtc(S);
+    // S = sqrtc(S);
 
     double answera, answerb, answerc;
 
