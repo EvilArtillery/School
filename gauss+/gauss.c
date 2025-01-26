@@ -5,7 +5,7 @@
 #include "lib.h"
 
 
-int solve(int n, double *a, double *b, double *x){
+int solve(int n, double *a, double *b, double *x, double minimal){
   double tmp;
   int i, j, I, k;
   double max;
@@ -14,7 +14,7 @@ int solve(int n, double *a, double *b, double *x){
 
   for ( i = 0 ; i < n ; i++) {
     I = -1;
-    max = 1e-14;
+    max = minimal * 1e-14;
     // printf("\x1b[91m%i\x1b[0m\n", i);
     for (j = i ; j < n; j++){
       // printf("\x1b[92m%3.2lf \x1b[0m", a[j*n + i]);

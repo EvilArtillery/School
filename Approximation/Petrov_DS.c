@@ -7,54 +7,29 @@ typedef struct dot {
     double y;
 } dot;
 
-double cmod(dot a){
-	double b;
-	b = a.x * a.x + (a.y * a.y);
-	return sqrt(b);
-}
 
-double argc(dot a){
-	double ar = 0;
-	double mod = cmod(a);
-	if(a.y > 1e-14) ar = acos(a.x/mod);
-	else ar = - acos(a.x/mod);
-	return ar;
-}
-
-dot sqrtc(dot a){
-	if(fabs(cmod(a) < 1e-10)) return (dot){0, 0};
-	dot b;
-	double r = cmod(a), fi = argc(a);
-	fi /= 2.;
-	r = sqrt(r);
-	b.x = r * cos(fi);
-	b.y = r * sin(fi);
-	return b;
-}
-
-
-void main(){
+int main(){
     int n;
     if(1 != scanf("%i", &n)){
         printf("\x1b[91mError! Scanf failed!\x1b[0m\n");
-        return;
+        return -1;
     }
     if(2 > n){
         printf("You can't approximate less than two points!\n");
-        return;
+        return 0;
     }
 
     dot* array = malloc(n * sizeof(dot));
     if(array == NULL){
         perror("Malloc failed");
-        return;
+        return -1;
     }
 
     for(int i = 0; i < n; i++){
         if(2 != scanf("%lf %lf", &(array+i)->x, &(array+i)->y)){
             printf("\x1b[91mError! Scanf failed!\x1b[0m\n");
             free(array);
-            return;
+            return -1;
         }
     }
 
@@ -80,8 +55,6 @@ void main(){
         S.y += yi;
     }
 
-    // S = sqrtc(S);
-
     double answera, answerb, answerc;
 
     answera = -S.y;
@@ -95,5 +68,5 @@ void main(){
     printf("\n\x1b[0m");
 
     free(array);
-    return;
+    return 1;
 }

@@ -40,8 +40,8 @@ int get_matrix(char* filename, double *a, int n){
 	file = fopen(filename, "r");
 	if (file == NULL) return -1;
 	for (int i = 0; i < n*n; i++){
-		if (fscanf(file, "%lf", a + i) == EOF) {
-			printf("\x1b[91m Недостаточно данных в файле\x1b[0m\n");
+		if (fscanf(file, "%lf", a + i) != 1) {
+			printf("\x1b[91mError in reading the file!\x1b[0m\n");
 			return -1;
 		}
 	}

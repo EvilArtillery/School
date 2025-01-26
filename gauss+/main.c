@@ -33,8 +33,8 @@ int main(int argc,char *argv[]){
 	}
 
 	if(m > n){
-		printf("\x1b[91mError! You can't set m more than n!\x1b[0m\n");
-		return 0;
+		printf("\x1b[93mYou can't set m more than n!\x1b[0m\n");
+		m = n;
 	}
 	
 	if (sscanf(argv[3], "%d", &k) != 1){
@@ -76,7 +76,18 @@ int main(int argc,char *argv[]){
 	fill_B(b, a, n);
 
 	// print_matrix(a, b, n);
-	if (solve(n, a, b, x)< 0) {
+
+	//finding a norm
+	double min = a[0], min1;
+	for (int i = 0; i < n; i++){
+		min1 = 0;
+		for(int j = 0; j <n; j++){
+			min1 += a[i*n + j];
+		}
+		if(min1 < min) min = min1;
+	}
+
+	if (solve(n, a, b, x, min)< 0) {
 		printf("Error in solve\n");
 		FREE;
 		return -1;
