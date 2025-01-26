@@ -26,7 +26,7 @@ int main(){
     }
 
     for(int i = 0; i < n; i++){
-        if(2 != scanf("%lf %lf", &(array+i)->x, &(array+i)->y)){
+        if(2 != sscanf("%lf %lf", &(array+i)->x, &(array+i)->y)){
             printf("\x1b[91mError! Scanf failed!\x1b[0m\n");
             free(array);
             return -1;
