@@ -8,9 +8,21 @@ typedef struct dot {
 } dot;
 
 
-int main(){
+int main(int argc, char *argv[]){
     int n;
-    if(1 != scanf("%i", &n)){
+
+    if(2 != argc){
+        printf("\x1b[91mError! Incorrect number of arguments!\x1b[0m\n");
+        return -1;
+    }
+
+    FILE* in = fopen(argv[1], "r");
+    if(NULL == in){
+		perror("File opening error"); //That's error output from stdlib.h
+		return -1;
+	}
+
+    if(1 != fscanf(in, "%i", &n)){
         printf("\x1b[91mError! Scanf failed!\x1b[0m\n");
         return -1;
     }
@@ -26,7 +38,7 @@ int main(){
     }
 
     for(int i = 0; i < n; i++){
-        if(2 != sscanf("%lf %lf", &(array+i)->x, &(array+i)->y)){
+        if(2 != fscanf(in, "%lf %lf", &(array+i)->x, &(array+i)->y)){
             printf("\x1b[91mError! Scanf failed!\x1b[0m\n");
             free(array);
             return -1;
@@ -64,7 +76,7 @@ int main(){
 
     printf("Answer:\n");
     printf("\x1b[92m");
-    printf("%lfx + %lfy + %lf = 0", answera, answerb, answerc);
+    printf("%.3lfx + %.3lfy + %.3lf = 0", answera, answerb, answerc);
     printf("\n\x1b[0m");
 
     free(array);
